@@ -12,6 +12,7 @@ import type Categoria from "../../../models/Categoria"
 
 // TEMP
 const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZWFuaW5ueS50ZWl4ZWlyYUBnbWFpbC5jb20iLCJpYXQiOjE3NzY4ODkxNjcsImV4cCI6MTc3Njg5Mjc2N30.AQ1Go0z0AE6OVYesyKuPQ282-jhNb2U6bX0hS7-VU0I"
+
 export default function FormExercicio() {
 
     const IMAGEM_PADRAO = "https://via.placeholder.com/300x200?text=Exercicio"
