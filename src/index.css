@@ -1,1 +1,27 @@
-@import "tailwindcss"
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&display=swap');
+
+@theme {
+  --font-orbitron: 'Orbitron', sans-serif;
+  --font-syne: 'Syne', sans-serif;
+}
+
+* {
+  font-family: 'Syne', sans-serif;
+}
+
+.input {
+  @apply w-full bg-[#0D1528] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B];
+}
+
+.label {
+  @apply text-[#8B9DC3] text-xs uppercase mb-2 block;
+}
+
+.btn-primary {
+  @apply bg-linear-to-br from-[#F59E0B] to-[#B45309] text-[#080D1A] font-bold py-3 rounded-xl hover:opacity-90 transition;
+}
+
+.btn-secondary {
+  @apply border border-[#1E3056] text-[#8B9DC3] py-3 rounded-xl hover:border-[#8B9DC3] hover:text-white transition;
+}
