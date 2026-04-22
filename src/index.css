@@ -1,1 +1,36 @@
-@import "tailwindcss"
+@import "tailwindcss";
+
+/* Fontes Oficiais do Guia */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400;500;600&display=swap');
+
+@theme {
+  /* Cores extraídas do seu PDF de referência */
+  --color-bg-void: #080D1A;
+  --color-bg-surface: #0D1528;
+  --color-solar: #F59E0B;
+  --color-solar-dark: #B45309;
+  --color-blue-sky: #38BDF8;
+  --color-border-main: #1E3056;
+  --color-text-main: #F0F4FF;
+  --color-text-dim: #8B9DC3;
+
+  /* Fontes */
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+/* Reset básico para evitar ecrã branco por falta de altura */
+:root {
+  background-color: #080D1A;
+  color: #F0F4FF;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  background-color: var(--color-bg-void);
+  /* Grid Vertical */
+  background-image: linear-gradient(to right, rgba(30, 48, 86, 0.2) 1px, transparent 1px);
+  background-size: 40px 100%;
+}
