@@ -1,4 +1,4 @@
-import { api } from './Service'
+import { api } from './api'
 import type { Usuario } from '../models/Usuario'
 import type { UsuarioLogin } from '../models/UsuarioLogin'
 
