@@ -1,6 +1,6 @@
 import type Categoria from "./Categoria"
 
-export interface Exercicio {
+export default interface Exercicio {
     id: number
     nome: string
     imagem: string

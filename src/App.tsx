@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import ListarCategorias from './components/categoria/listarcategorias/ListarCategorias'
 import FormCategoria from './components/categoria/formcategoria/FormCategoria'
 import DeletarCategoria from './components/categoria/deletarcategoria/DeletarCategoria'
+import ListarExercicios from './components/exercicios/listarexercicios/ListarExercicios'
+import FormExercicio from './components/exercicios/formexercicios/FormExercicios'
 
 export default function App() {
   return (
@@ -10,9 +12,12 @@ export default function App() {
         <Routes>
           <Route path="/" element={<h1 className="p-4 text-2xl font-bold">Solara App </h1>} />
           <Route path="/categorias" element={<ListarCategorias />} />
-                <Route path="/cadastrarcategoria" element={<FormCategoria />} />
-                <Route path="/editarcategoria/:id" element={<FormCategoria />} />
-                <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />                
+          <Route path="/cadastrarcategoria" element={<FormCategoria />} />
+          <Route path="/editarcategoria/:id" element={<FormCategoria />} />
+          <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />
+          <Route path="/exercicios" element={<ListarExercicios />} />
+          <Route path="/exercicios/cadastrar" element={<FormExercicio />} />
+          <Route path="/exercicios/editar/:id" element={<FormExercicio />} />          
         </Routes>
       </div>
     </BrowserRouter>
