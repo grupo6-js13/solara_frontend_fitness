@@ -1,13 +1,12 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-neutral-50 text-neutral-900">
-        <Routes>
-          <Route path="/" element={<h1 className="p-4 text-2xl font-bold">Solara App </h1>} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
     </BrowserRouter>
-  )
+  );
 }
