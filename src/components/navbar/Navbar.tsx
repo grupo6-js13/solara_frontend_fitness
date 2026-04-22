@@ -1,8 +1,18 @@
-import { Link, useLocation } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { usuario, handleLogout } = useContext(AuthContext);
+
   const isActive = (path: string) => location.pathname === path ? "text-white" : "text-[#8B9DC3]";
+
+  function logout() {
+    handleLogout();
+    navigate('/login');
+  }
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-[#1E3056]/30 backdrop-blur-xl bg-[#080D1A]/70">
@@ -29,29 +39,54 @@ export default function Navbar() {
 
         {/* Links Centrais */}
         <div className="flex items-center gap-8">
-          <Link to="/" className={`${isActive("/")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>Home</Link>
-          <Link to="/sobre" className={`${isActive("/sobre")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>Sobre</Link>
-          <Link to="/projeto" className={`${isActive("/projeto")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>O Projeto</Link>
+          {usuario.token !== "" ? (
+            <>
+              <Link to="/categorias" className={`${isActive("/categorias")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>Categorias</Link>
+              <Link to="/exercicios" className={`${isActive("/exercicios")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>Exercícios</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/" className={`${isActive("/")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>Home</Link>
+              <Link to="/sobre" className={`${isActive("/sobre")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>Sobre</Link>
+              <Link to="/projeto" className={`${isActive("/projeto")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>O Projeto</Link>
+            </>
+          )}
         </div>
 
-        {/* Botões da Direita com Hover de Iluminação */}
+        {/* Botões da Direita */}
         <div className="flex items-center gap-3">
-          {/* Botão Entrar: Brilho Branco/Azulado */}
-          <Link 
-            to="/login" 
-            className="text-[#F0F4FF] text-xs font-bold border border-[#1E3056] px-5 py-2 rounded-lg transition-all duration-300 hover:border-[#F0F4FF] hover:shadow-[0_0_15px_rgba(240,244,255,0.3)] hover:bg-white/5"
-          >
-            Entrar
-          </Link>
-
-          {/* Botão Cadastrar: Brilho Alaranjado intenso */}
-          <Link 
-            to="/cadastro" 
-            className="text-[#080D1A] font-bold rounded-lg px-5 py-2 text-xs shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(245,158,11,0.5)]"
-            style={{ background: "linear-gradient(135deg, #F59E0B, #B45309)" }}
-          >
-            Cadastrar
-          </Link>
+          {usuario.token !== "" ? (
+            <>
+              <Link 
+                to="/perfil" 
+                className="text-[#8B9DC3] text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all mr-4"
+              >
+                Perfil
+              </Link>
+              <button 
+                onClick={logout}
+                className="text-[#F0F4FF] cursor-pointer text-xs font-bold border border-[#1E3056] px-5 py-2 rounded-lg transition-all duration-300 hover:border-[#F0F4FF] hover:shadow-[0_0_15px_rgba(240,244,255,0.3)] hover:bg-white/5"
+              >
+                Sair
+              </button>
+            </>
+          ) : (
+            <>
+              <Link 
+                to="/login" 
+                className="text-[#F0F4FF] text-xs font-bold border border-[#1E3056] px-5 py-2 rounded-lg transition-all duration-300 hover:border-[#F0F4FF] hover:shadow-[0_0_15px_rgba(240,244,255,0.3)] hover:bg-white/5"
+              >
+                Entrar
+              </Link>
+              <Link 
+                to="/cadastro" 
+                className="text-[#080D1A] font-bold rounded-lg px-5 py-2 text-xs shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(245,158,11,0.5)]"
+                style={{ background: "linear-gradient(135deg, #F59E0B, #B45309)" }}
+              >
+                Cadastrar
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>

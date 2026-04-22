@@ -1,5 +1,4 @@
-// TODO: descomentar quando AuthContext estiver pronto
-// import { AuthContext } from "../../../contexts/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 import { useEffect, useContext, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
@@ -17,12 +16,8 @@ function DeletarCategoria() {
     // Estado que irá receber os dados da categoria a ser deletada
     const [categoria, setCategoria] = useState<Categoria>({} as Categoria)
 
-    // TODO: quando AuthContext estiver pronto:
-    // 1. remover a linha abaixo
-    const token = "token_aqui_para_testar"
-    // 2. descomentar as duas linhas abaixo
-    // const { usuario, handleLogout } = useContext(AuthContext)
-    // const token = usuario.token
+    const { usuario, handleLogout } = useContext(AuthContext)
+    const token = usuario.token
 
     // Acessar o parâmetro id da rota de deleção da categoria
     const { id } = useParams<{ id: string }>()
@@ -37,6 +32,7 @@ function DeletarCategoria() {
         } catch (error: any) {
             if (error.toString().includes('401')) {
                 alert('Sessão expirada. Faça login novamente.')
+                handleLogout()
                 navigate('/')
             }
         } finally {
@@ -44,14 +40,13 @@ function DeletarCategoria() {
         }
     }
 
-    // TODO: descomentar quando AuthContext estiver pronto
     // Cria um useEffect para monitorar o token
-    // useEffect(() => {
-    //     if (token === '') {
-    //         alert('Você precisa estar logado!')
-    //         navigate('/')
-    //     }
-    // }, [token])
+    useEffect(() => {
+        if (token === '') {
+            alert('Você precisa estar logado!')
+            navigate('/')
+        }
+    }, [token])
 
     // Cria um useEffect para monitorar o id (rota)
     useEffect(() => {
@@ -72,6 +67,7 @@ function DeletarCategoria() {
         } catch (error: any) {
             if (error.toString().includes('401')) {
                 alert('Sessão expirada. Faça login novamente.')
+                handleLogout()
                 navigate('/')
             } else {
                 alert('Erro ao deletar a categoria!')

@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { useNavigate } from "react-router-dom"
 import { deleteExercicio } from "../../../services/ExercicioService"
-
-const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZWFuaW5ueS50ZWl4ZWlyYUBnbWFpbC5jb20iLCJpYXQiOjE3NzY4ODkxNjcsImV4cCI6MTc3Njg5Mjc2N30.AQ1Go0z0AE6OVYesyKuPQ282-jhNb2U6bX0hS7-VU0I"
+import { AuthContext } from "../../../context/AuthContext"
 
 export default function DeletarExercicio({
     id,
@@ -14,8 +14,12 @@ export default function DeletarExercicio({
     onClose: () => void
     onSuccess: () => void
 }) {
+    const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [erro, setErro] = useState<string | null>(null)
+
+    const { usuario, handleLogout } = useContext(AuthContext)
+    const token = usuario.token
 
     async function handleDelete() {
         setLoading(true)
@@ -27,7 +31,10 @@ export default function DeletarExercicio({
             onClose()
         } catch (error: any) {
             if (error.response?.status === 401) {
-                setErro("Sessão expirada.")
+                alert('Sessão expirada. Faça login novamente.')
+                handleLogout()
+                onClose()
+                navigate('/')
             } else {
                 setErro("Erro ao deletar exercício.")
             }
@@ -69,7 +76,7 @@ export default function DeletarExercicio({
                     <button
                         onClick={onClose}
                         disabled={loading}
-                        className="flex-1 border border-[#1E3056] text-[#8B9DC3] py-3 rounded-xl hover:border-[#8B9DC3] hover:text-white transition disabled:opacity-50"
+                        className="flex-1 border border-[#1E3056] text-[#8B9DC3] py-3 rounded-xl hover:border-[#8B9DC3] hover:text-white transition disabled:opacity-50 cursor-pointer"
                     >
                         Cancelar
                     </button>
@@ -77,7 +84,7 @@ export default function DeletarExercicio({
                     <button
                         onClick={handleDelete}
                         disabled={loading}
-                        className="flex-1 bg-[#F87171]/10 border border-[#F87171]/30 text-[#F87171] py-3 rounded-xl hover:bg-[#F87171]/20 transition disabled:opacity-50"
+                        className="flex-1 bg-[#F87171]/10 border border-[#F87171]/30 text-[#F87171] py-3 rounded-xl hover:bg-[#F87171]/20 transition disabled:opacity-50 cursor-pointer"
                     >
                         {loading ? "Deletando..." : "Deletar"}
                     </button>

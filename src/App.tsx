@@ -31,8 +31,8 @@ export default function App() {
                style={{ backgroundImage: `radial-gradient(#8B9DC3 1px, transparent 1px)`, backgroundSize: '24px 24px' }}>
           </div>
 
-          <div className="absolute top-[20%] left-[-5%] w-[400px] h-[400px] rounded-full bg-[#F59E0B]/10 blur-[120px] z-0"></div>
-          <div className="absolute bottom-[10%] right-[0%] w-[300px] h-[300px] rounded-full bg-[#38BDF8]/5 blur-[100px] z-0"></div>
+          <div className="absolute top-[20%] left-[-5%] w-100 h-100 rounded-full bg-[#F59E0B]/10 blur-[120px] z-0"></div>
+          <div className="absolute bottom-[10%] right-[0%] w-75 h-75 rounded-full bg-[#38BDF8]/5 blur-[100px] z-0"></div>
 
           <Navbar />
           

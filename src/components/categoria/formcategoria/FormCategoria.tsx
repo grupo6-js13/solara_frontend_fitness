@@ -1,7 +1,6 @@
 import { useState, useContext, useEffect, type ChangeEvent, type SyntheticEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-// TODO: descomentar quando AuthContext estiver pronto
-// import { AuthContext } from "../../../contexts/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 import type Categoria from "../../../models/Categoria";
 import { createCategoria, findCategoriaById, updateCategoria } from "../../../services/CategoriaService";
 import { ClipLoader } from "react-spinners";
@@ -17,16 +16,10 @@ function FormCategoria() {
   // Estado que irá receber os dados da categoria que será persistido no Backend
   const [categoria, setCategoria] = useState<Categoria>({} as Categoria);
 
-  // TODO: quando AuthContext estiver pronto:
-
-  // 1. remover a linha abaixo
-  const token = "token_aqui_para_testar"
-
-  // 2. descomentar as quatro linhas abaixo
   // Acessa o token do usuário autenticado
-  // const { usuario, handleLogout } = useContext(AuthContext)
+  const { usuario, handleLogout } = useContext(AuthContext)
   // Cria um objeto para armazenar o token
-  // const token = usuario.token
+  const token = usuario.token
 
   // Acessar o parâmetro id da rota de edição da Categoria
   const { id } = useParams<{ id: string }>();
@@ -42,6 +35,7 @@ function FormCategoria() {
     } catch (error: any) {
       if (error.toString().includes('401')) {
         alert('Sessão expirada. Faça login novamente.')
+        handleLogout()
         navigate('/')
       }
 
@@ -50,14 +44,13 @@ function FormCategoria() {
     }
   }
 
-  // TODO: descomentar quando AuthContext estiver pronto
   // Cria um useEffect para monitorar o token
-  // useEffect(() => {
-  //   if (token === '') {
-  //     alert('Você precisa estar logado!')
-  //     navigate('/')
-  //   }
-  // }, [token])
+  useEffect(() => {
+    if (token === '') {
+      alert('Você precisa estar logado!')
+      navigate('/')
+    }
+  }, [token])
 
   // Cria um useEffect para monitorar o id (rota)
   useEffect(() => {
@@ -92,6 +85,7 @@ function FormCategoria() {
 
         if (error.toString().includes('401')) {
           alert('Sessão expirada. Faça login novamente.')
+          handleLogout()
           navigate('/')
         } else {
           alert('Erro ao Atualizar a Categoria!')
@@ -103,12 +97,13 @@ function FormCategoria() {
       // Cadastro
       try {
 
-        await createCategoria(categoria);
-        alert('Categoria cadastrada com sucesso!')
+        await createCategoria(categoria, token);
+        alert('Categoria cadastrada com sucesso!');
 
       } catch (error: any) {
         if (error.toString().includes('401')) {
           alert('Sessão expirada. Faça login novamente.')
+          handleLogout()
           navigate('/')
         } else {
           alert('Erro ao Cadastrar a Categoria!')

@@ -24,9 +24,9 @@ export async function findCategoriasByNome(nome: string, token: string): Promise
     return response.data
 }
 
-export async function createCategoria(categoria: Omit<Categoria, "id">): Promise<Categoria> {
-    const response = await api.post<Categoria>(`${BASE_URL}/categorias/cadastrar`, categoria)
-    return response.data
+export const createCategoria = async (categoria: Categoria, header: any) => {
+    const resposta = await api.post('/categorias', categoria, header)
+    return resposta.data
 }
 
 

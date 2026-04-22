@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import type Exercicio from "../../../models/Exercicio"
 import {
@@ -8,7 +8,8 @@ import {
 import ModalConfirmDeleteExercicio from "../deletarexercicio/DeletarExercicio"
 import ExercicioCard from "../../../components/exercicios/exerciciocard/ExercicioCard"
 
-const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZWFuaW5ueS50ZWl4ZWlyYUBnbWFpbC5jb20iLCJpYXQiOjE3NzY4ODkxNjcsImV4cCI6MTc3Njg5Mjc2N30.AQ1Go0z0AE6OVYesyKuPQ282-jhNb2U6bX0hS7-VU0I"
+// LÓGICA INJETADA: Importando a Segurança
+import { AuthContext } from "../../../context/AuthContext"
 
 export default function ListarExercicios() {
     const navigate = useNavigate()
@@ -22,15 +23,32 @@ export default function ListarExercicios() {
 
     const [deleteTarget, setDeleteTarget] = useState<{ id: number; nome: string } | null>(null)
 
+    // LÓGICA INJETADA: Consumindo o Contexto de Autenticação
+    const { usuario, handleLogout } = useContext(AuthContext)
+    const token = usuario.token
+
+    // LÓGICA INJETADA: Proteção de Rota (Expulsa se não estiver logado)
+    useEffect(() => {
+        if (token === '') {
+            alert('Você precisa estar logado!')
+            navigate('/')
+        }
+    }, [token])
+
     async function carregar() {
         setErro(null)
         setLoading(true)
         try {
+            // Agora ele passa o 'token' dinâmico do usuário, não o falso
             const dados = await findAllExercicios(token)
             setExercicios(dados)
         } catch (error: any) {
             if (error.response?.status === 401) {
                 setErro("Sessão expirada.")
+                // LÓGICA INJETADA: Segurança adicional se o token vencer
+                alert('Sessão expirada. Faça login novamente.')
+                handleLogout()
+                navigate('/')
             } else {
                 setErro("Erro ao carregar exercícios.")
             }
@@ -50,6 +68,7 @@ export default function ListarExercicios() {
         setBuscando(true)
 
         try {
+            // Agora ele passa o 'token' dinâmico do usuário, não o falso
             const dados = await findExerciciosByNome(busca, token)
             setExercicios(dados)
         } catch {

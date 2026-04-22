@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { ClipLoader } from "react-spinners"
 import {
@@ -9,9 +9,7 @@ import {
 import { findAllCategorias } from "../../../services/CategoriaService"
 import type Exercicio from "../../../models/Exercicio"
 import type Categoria from "../../../models/Categoria"
-
-// TEMP
-const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZWFuaW5ueS50ZWl4ZWlyYUBnbWFpbC5jb20iLCJpYXQiOjE3NzY4ODkxNjcsImV4cCI6MTc3Njg5Mjc2N30.AQ1Go0z0AE6OVYesyKuPQ282-jhNb2U6bX0hS7-VU0I"
+import { AuthContext } from "../../../context/AuthContext"
 
 export default function FormExercicio() {
 
@@ -19,6 +17,9 @@ export default function FormExercicio() {
 
     const { id } = useParams()
     const navigate = useNavigate()
+
+    const { usuario, handleLogout } = useContext(AuthContext)
+    const token = usuario.token
 
     const [imagemValida, setImagemValida] = useState<boolean | null>(null)
 
@@ -36,6 +37,14 @@ export default function FormExercicio() {
     const [erro, setErro] = useState<string | null>(null)
     const [loading, setLoading] = useState(true)
     const [saving, setSaving] = useState(false)
+
+    // Proteção de rota
+    useEffect(() => {
+        if (token === '') {
+            alert('Você precisa estar logado!')
+            navigate('/')
+        }
+    }, [token])
 
     // ─── INIT ─────────────────────────────────
 
@@ -57,20 +66,25 @@ export default function FormExercicio() {
 
             } catch (error: any) {
                 if (!mounted) return
-                setErro(
-                    error.response?.status === 401
-                        ? "Sessão expirada."
-                        : "Erro ao carregar dados."
-                )
+                if (error.response?.status === 401) {
+                    alert('Sessão expirada. Faça login novamente.')
+                    handleLogout()
+                    navigate('/')
+                } else {
+                    setErro("Erro ao carregar dados.")
+                }
             } finally {
                 if (mounted) setLoading(false)
             }
         }
 
-        init()
+        if (token !== '') {
+            init()
+        }
+        
         return () => { mounted = false }
 
-    }, [id])
+    }, [id, token])
 
     // ─── VALIDAÇÃO IMAGEM ─────────────────────
 
@@ -129,11 +143,13 @@ export default function FormExercicio() {
             navigate("/exercicios")
 
         } catch (error: any) {
-            setErro(
-                error.response?.status === 401
-                    ? "Sessão expirada."
-                    : "Erro ao salvar."
-            )
+            if (error.response?.status === 401) {
+                alert('Sessão expirada. Faça login novamente.')
+                handleLogout()
+                navigate('/')
+            } else {
+                setErro("Erro ao salvar.")
+            }
         } finally {
             setSaving(false)
         }
@@ -244,7 +260,7 @@ export default function FormExercicio() {
                         <button
                             type="button"
                             onClick={() => navigate("/exercicios")}
-                            className="flex-1 btn-secondary"
+                            className="flex-1 btn-secondary cursor-pointer"
                         >
                             Cancelar
                         </button>
@@ -252,7 +268,7 @@ export default function FormExercicio() {
                         <button
                             type="submit"
                             disabled={saving}
-                            className="flex-1 btn-primary"
+                            className="flex-1 btn-primary cursor-pointer"
                         >
                             {saving ? <ClipLoader size={18} color="#080D1A" /> : "Salvar"}
                         </button>
