@@ -7,6 +7,10 @@ import 'react-toastify/dist/ReactToastify.css'
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 
+// Importações das Páginas Estáticas (O que veio da branch home)
+import Home from "./pages/Home";
+import Sobre from "./pages/Sobre";
+
 // Importações de Usuário e Segurança
 import Login from './pages/login/Login'
 import Cadastro from './pages/cadastro/Cadastro'
@@ -38,8 +42,13 @@ export default function App() {
           
           <main className="flex-1 flex flex-col z-10 relative">
             <Routes>
+              {/* Páginas Estáticas */}
+              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/sobre" element={<Sobre />} />
+              <Route path="/projeto" element={<div className="flex-1" />} />
+
               {/* Rotas de Autenticação */}
-              <Route path="/" element={<Login />} />
               <Route path="/login" element={<Login />} />
               <Route path="/cadastro" element={<Cadastro />} />
               <Route path="/perfil" element={<Perfil />} />
@@ -56,9 +65,6 @@ export default function App() {
               <Route path="/exercicios/cadastrar" element={<FormExercicio />} />
               <Route path="/exercicios/editar/:id" element={<FormExercicio />} />
 
-              {/* Páginas Estáticas */}
-              <Route path="/sobre" element={<div className="flex-1" />} />
-              <Route path="/projeto" element={<div className="flex-1" />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
