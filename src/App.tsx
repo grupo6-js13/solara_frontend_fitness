@@ -1,13 +1,27 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Login from './pages/login/Login'
+import Cadastro from './pages/cadastro/Cadastro'
+import Perfil from './pages/perfil/Perfil'
+import EditarPerfil from './pages/perfil/EditarPerfil'
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <div className="min-h-screen bg-neutral-50 text-neutral-900">
-        <Routes>
-          <Route path="/" element={<h1 className="p-4 text-2xl font-bold">Solara App </h1>} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <AuthProvider>
+      <ToastContainer />
+      <BrowserRouter>
+        <div className="min-h-screen bg-[#080D1A] text-[#F0F4FF]">
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/cadastro" element={<Cadastro />} />
+            <Route path="/perfil" element={<Perfil />} />
+            <Route path="/perfil/editar" element={<EditarPerfil />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </AuthProvider>
   )
 }

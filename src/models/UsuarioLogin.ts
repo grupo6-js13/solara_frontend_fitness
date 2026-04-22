@@ -5,4 +5,8 @@ export interface UsuarioLogin {
   senha?: string
   foto: string
   token: string
+  dataNascimento?: string
+  peso?: number
+  altura?: number
+  imc?: number
 }
