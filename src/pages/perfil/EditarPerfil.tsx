@@ -236,7 +236,7 @@ export default function EditarPerfil() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="flex-[2] bg-linear-to-br from-[#F59E0B] to-[#B45309] text-[#080D1A] font-bold py-3.5 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
+                className="flex-2 bg-linear-to-br from-[#F59E0B] to-[#B45309] text-[#080D1A] font-bold py-3.5 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
               >
                 {isLoading ? 'Salvando...' : 'Salvar Alterações'}
               </button>
