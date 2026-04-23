@@ -40,10 +40,19 @@ export default function Login() {
       <div className="bg-[#0D1528] border border-[#1E3056] rounded-3xl p-12 w-full max-w-md z-10">
         
         <div className="flex flex-col items-center mb-9">
-          <div className="w-14 h-14 rounded-full flex items-center justify-center mb-4 bg-linear-to-br from-[#F59E0B] to-[#B45309]">
-            <span className="text-2xl">☀️</span>
+          <div className="w-14 h-14 rounded-full flex items-center justify-center text-white text-2xl font-black mb-4"
+               style={{ 
+                 background: "linear-gradient(135deg, #F59E0B, #B45309)", 
+                 boxShadow: "0 0 20px rgba(245,158,11,0.5)" 
+               }}>
+            ✦
           </div>
-          <h1 className="font-['Orbitron'] text-2xl font-bold tracking-widest text-[#F0F4FF] mb-2">
+          <h1 className="font-['Orbitron'] text-2xl font-bold tracking-widest text-center mb-2"
+              style={{
+                background: "linear-gradient(90deg, #F59E0B 0%, #38BDF8 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}>
             SOLARA
           </h1>
           <p className="text-[#8B9DC3] text-sm text-center">
