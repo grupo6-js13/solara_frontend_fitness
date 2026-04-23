@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 
 export default function Footer() {
+
+  let data = new Date().getFullYear()
+
   return (
     <footer className="border-t border-[#1E3056]/30 bg-[#080D1A] relative z-10">
       <div className="max-w-7xl mx-auto px-6 py-14">
@@ -26,7 +29,7 @@ export default function Footer() {
                 SOLARA
               </span>
             </div>
-            <p className="text-[#4A5A7A] text-[13px] leading-relaxed max-w-[240px]">
+            <p className="text-[#4A5A7A] text-[13px] leading-relaxed max-w-60">
               Sua jornada de saúde, iluminada. <br />
               Treinos personalizados para cada estrela.
             </p>
@@ -59,14 +62,14 @@ export default function Footer() {
         </div>
 
         {/* Linha Divisória e Copyright */}
-        <div className="pt-8 border-t border-[#1E3056]/20 flex justify-between items-center">
+        <div className="pt-8 border-t text-[#4A5A7A] text-[11px] uppercase tracking-widest flex justify-between items-center">
           <p className="text-[#1E3056] text-[11px] uppercase tracking-widest">
-            © 2024 Orbyte. Desenvolvido no Generation Brasil.
+            © {data} Orbyte. Desenvolvido no Generation Brasil.
           </p>
           
           <div className="flex gap-2">
-            <div className="w-6 h-[2px] bg-[#F59E0B] rounded-full"></div>
-            <div className="w-6 h-[2px] bg-[#38BDF8] rounded-full"></div>
+            <div className="w-6 h-0.5 bg-[#F59E0B] rounded-full"></div>
+            <div className="w-6 h-0.5 bg-[#38BDF8] rounded-full"></div>
           </div>
         </div>
       </div>
