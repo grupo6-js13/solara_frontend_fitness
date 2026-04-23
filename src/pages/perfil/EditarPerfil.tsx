@@ -5,27 +5,25 @@ import { AuthContext } from '../../context/AuthContext'
 import { atualizarUsuario, buscarUsuario } from '../../services/UsuarioService'
 import type { Usuario } from '../../models/Usuario'
 import { toast } from 'react-toastify'
-
+ 
 export default function EditarPerfil() {
   const navigate = useNavigate()
   const { usuario, handleLogout } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
-
-  // estado de confirmação de senha é essencial aqui também
+ 
   const [confirmarSenha, setConfirmarSenha] = useState('')
-
+ 
   const [usuarioEditar, setUsuarioEditar] = useState<Usuario>({
     id: 0,
     nome: '',
     usuario: '',
-    senha: '', // A senha começa vazia por segurança
+    senha: '',
     foto: '',
     dataNascimento: '',
     peso: 0,
     altura: 0
   })
-
-  // Busca os dados atuais do usuário para preencher os inputs
+ 
   useEffect(() => {
     if (usuario.token === '') {
       navigate('/login')
@@ -33,94 +31,91 @@ export default function EditarPerfil() {
       buscarDadosAtuais()
     }
   }, [usuario.token])
-
+ 
   async function buscarDadosAtuais() {
     try {
       let userTemp: any = {}
       await buscarUsuario(`/usuarios/${usuario.id}`, (dados: Usuario) => { userTemp = dados }, {
         headers: { Authorization: usuario.token }
       })
-      
-      // Preenchemos o estado, mas limpamos o campo de senha que vem do banco
       setUsuarioEditar({
         ...userTemp,
-        senha: '' 
+        senha: ''
       })
     } catch (error: any) {
       toast.error('Erro ao carregar dados.')
       if (error.response?.status === 401) handleLogout()
     }
   }
-
+ 
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
     setUsuarioEditar({
       ...usuarioEditar,
       [e.target.name]: e.target.value
     } as any)
   }
-
+ 
   function handleConfirmarSenha(e: ChangeEvent<HTMLInputElement>) {
     setConfirmarSenha(e.target.value)
   }
-
+ 
   async function atualizar(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault()
-
+ 
     if (confirmarSenha !== usuarioEditar.senha) {
       toast.error('As senhas não coincidem!')
       return
     }
-
+ 
     let pesoFormatado = parseFloat(String(usuarioEditar.peso).replace(',', '.'))
     let alturaFormatada = parseFloat(String(usuarioEditar.altura).replace(',', '.'))
-
+ 
     if (alturaFormatada > 3) {
       alturaFormatada = alturaFormatada / 100
     }
-
+ 
     if (isNaN(pesoFormatado) || pesoFormatado <= 0 || isNaN(alturaFormatada) || alturaFormatada <= 0) {
       toast.error('Por favor, informe um peso e uma altura válidos!')
       return
     }
-
+ 
     const usuarioEnvio = {
       ...usuarioEditar,
       peso: pesoFormatado,
       altura: alturaFormatada
     }
-
+ 
     setIsLoading(true)
     try {
-      // Chama a rota PUT /usuarios/atualizar com o token
       await atualizarUsuario('/usuarios/atualizar', usuarioEnvio, setUsuarioEditar, {
         headers: { Authorization: usuario.token }
       })
       toast.success('Perfil atualizado com sucesso!')
-      navigate('/perfil') // Volta para o perfil para ver o IMC recalculado
+      navigate('/perfil')
     } catch (error) {
       toast.error('Erro ao atualizar o perfil.')
     } finally {
       setIsLoading(false)
     }
   }
-
+ 
   return (
     <div className="min-h-screen bg-[#080D1A] py-16 px-6">
       <div className="max-w-xl mx-auto">
-        <button 
+        <button
           onClick={() => navigate('/perfil')}
           className="text-[#8B9DC3] text-sm mb-4 hover:text-white transition-colors bg-transparent border-none p-0"
         >
           ← Voltar para o Perfil
         </button>
-
+ 
         <h1 className="font-['Orbitron'] text-2xl font-bold text-[#F0F4FF] mb-10">
           Editar Perfil
         </h1>
-
-        <div className="bg-[#0D1528] border border-[#1E3056] rounded-2xl p-10">
+ 
+        <div className="bg-[#0D1528] border border-[#1E3056] rounded-2xl p-6 sm:p-10">
           <form onSubmit={atualizar} className="flex flex-col gap-5">
-            
+ 
             <div>
               <label className="block text-[#8B9DC3] text-xs font-semibold tracking-widest uppercase mb-2">Nome Completo</label>
               <input
@@ -132,7 +127,7 @@ export default function EditarPerfil() {
                 className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
               />
             </div>
-
+ 
             <div>
               <label className="block text-[#8B9DC3] text-xs font-semibold tracking-widest uppercase mb-2">E-mail</label>
               <input
@@ -144,8 +139,8 @@ export default function EditarPerfil() {
                 className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
               />
             </div>
-
-            <div className="grid grid-cols-2 gap-4">
+ 
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[#8B9DC3] text-xs font-semibold tracking-widest uppercase mb-2">Sua Senha (Obrigatório)</label>
                 <input
@@ -171,7 +166,7 @@ export default function EditarPerfil() {
                 />
               </div>
             </div>
-
+ 
             <div>
               <label className="block text-[#8B9DC3] text-xs font-semibold tracking-widest uppercase mb-2">URL da Foto</label>
               <input
@@ -182,8 +177,7 @@ export default function EditarPerfil() {
                 className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
               />
             </div>
-
-            {/* Formatamos a data para o input date entender (YYYY-MM-DD) */}
+ 
             <div>
               <label className="block text-[#8B9DC3] text-xs font-semibold tracking-widest uppercase mb-2">Data de Nascimento</label>
               <input
@@ -195,8 +189,8 @@ export default function EditarPerfil() {
                 className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
               />
             </div>
-
-            <div className="grid grid-cols-2 gap-4">
+ 
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[#8B9DC3] text-xs font-semibold tracking-widest uppercase mb-2">Peso (kg)</label>
                 <input
@@ -224,7 +218,7 @@ export default function EditarPerfil() {
                 />
               </div>
             </div>
-
+ 
             <div className="flex gap-3 mt-4">
               <button
                 type="button"
@@ -241,7 +235,7 @@ export default function EditarPerfil() {
                 {isLoading ? 'Salvando...' : 'Salvar Alterações'}
               </button>
             </div>
-            
+ 
           </form>
         </div>
       </div>
