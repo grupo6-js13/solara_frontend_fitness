@@ -4,6 +4,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import type Categoria from "../../../models/Categoria";
 import { createCategoria, findCategoriaById, updateCategoria } from "../../../services/CategoriaService";
 import { ClipLoader } from "react-spinners";
+import { ToastAlerta } from "../../../util/ToastAlerta";
 
 function FormCategoria() {
 
@@ -34,7 +35,7 @@ function FormCategoria() {
 
     } catch (error: any) {
       if (error.toString().includes('401')) {
-        alert('Sessão expirada. Faça login novamente.')
+        ToastAlerta('Sessão expirada. Faça login novamente.', 'info')
         handleLogout()
         navigate('/')
       }
@@ -47,7 +48,7 @@ function FormCategoria() {
   // Cria um useEffect para monitorar o token
   useEffect(() => {
     if (token === '') {
-      alert('Você precisa estar logado!')
+      ToastAlerta('Você precisa estar logado!', 'info')
       navigate('/')
     }
   }, [token])
@@ -79,16 +80,16 @@ function FormCategoria() {
       try {
         await updateCategoria(categoria, token)
 
-        alert('Categoria atualizada com sucesso!')
+        ToastAlerta('Categoria atualizada com sucesso!', 'sucesso')
 
       } catch (error: any) {
 
         if (error.toString().includes('401')) {
-          alert('Sessão expirada. Faça login novamente.')
+          ToastAlerta('Sessão expirada. Faça login novamente.', 'info')
           handleLogout()
           navigate('/')
         } else {
-          alert('Erro ao Atualizar a Categoria!')
+          ToastAlerta('Erro ao Atualizar a Categoria!', 'erro')
         }
       }
 
@@ -98,15 +99,15 @@ function FormCategoria() {
       try {
 
         await createCategoria(categoria, token);
-        alert('Categoria cadastrada com sucesso!');
+        ToastAlerta('Categoria cadastrada com sucesso!', 'sucesso');
 
       } catch (error: any) {
         if (error.toString().includes('401')) {
-          alert('Sessão expirada. Faça login novamente.')
+          ToastAlerta('Sessão expirada. Faça login novamente.', 'info')
           handleLogout()
           navigate('/')
         } else {
-          alert('Erro ao Cadastrar a Categoria!')
+          ToastAlerta('Erro ao Cadastrar a Categoria!', 'erro')
         }
       }
 

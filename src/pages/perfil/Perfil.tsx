@@ -3,7 +3,7 @@ import { AuthContext } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { buscarUsuario } from '../../services/UsuarioService'
 import type { Usuario } from '../../models/Usuario'
-import { toast } from 'react-toastify'
+import { ToastAlerta } from '../../util/ToastAlerta'
 
 export default function Perfil() {
   const { usuario, handleLogout } = useContext(AuthContext)
@@ -38,7 +38,7 @@ export default function Perfil() {
         headers: { Authorization: usuario.token }
       })
     } catch (error: any) {
-      toast.error('Erro ao carregar os dados do perfil.')
+      ToastAlerta('Erro ao carregar os dados do perfil.', 'erro')
       if (error.response?.status === 401 || error.response?.status === 403) {
         handleLogout()
       }

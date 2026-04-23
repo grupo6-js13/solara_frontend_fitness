@@ -10,6 +10,7 @@ import { findAllCategorias } from "../../../services/CategoriaService"
 import type Exercicio from "../../../models/Exercicio"
 import type Categoria from "../../../models/Categoria"
 import { AuthContext } from "../../../context/AuthContext"
+import { ToastAlerta } from "../../../util/ToastAlerta"
 
 export default function FormExercicio() {
 
@@ -41,7 +42,7 @@ export default function FormExercicio() {
     // Proteção de rota
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado!')
+            ToastAlerta('Você precisa estar logado!', 'info')
             navigate('/')
         }
     }, [token])
@@ -67,7 +68,7 @@ export default function FormExercicio() {
             } catch (error: any) {
                 if (!mounted) return
                 if (error.response?.status === 401) {
-                    alert('Sessão expirada. Faça login novamente.')
+                    ToastAlerta('Sessão expirada. Faça login novamente.', 'info')
                     handleLogout()
                     navigate('/')
                 } else {
@@ -151,7 +152,7 @@ export default function FormExercicio() {
 
         } catch (error: any) {
             if (error.response?.status === 401) {
-                alert('Sessão expirada. Faça login novamente.')
+                ToastAlerta('Sessão expirada. Faça login novamente.', 'info')
                 handleLogout()
                 navigate('/')
             } else {

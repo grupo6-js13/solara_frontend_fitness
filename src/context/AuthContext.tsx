@@ -2,7 +2,7 @@ import { createContext, useState } from 'react'
 import type { ReactNode } from 'react'
 import type { UsuarioLogin } from '../models/UsuarioLogin'
 import { logarUsuario } from '../services/UsuarioService'
-import { toast } from 'react-toastify'
+import { ToastAlerta } from '../util/ToastAlerta'
 
 interface AuthContextProps {
   usuario: UsuarioLogin
@@ -37,9 +37,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setIsLoading(true)
     try {
       await logarUsuario('/usuarios/logar', userLogin, setUsuario)
-      toast.success('Login efetuado com sucesso!')
+      ToastAlerta('Login efetuado com sucesso!', 'sucesso')
     } catch (error) {
-      toast.error('Dados do usuário inconsistentes.')
+      ToastAlerta('Dados do usuário inconsistentes.', 'erro')
     } finally {
       setIsLoading(false)
     }
@@ -54,7 +54,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       foto: '',
       token: ''
     })
-    toast.info('Usuário deslogado!')
+    ToastAlerta('Usuário deslogado!', 'info')
   }
 
   return (

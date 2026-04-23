@@ -2,6 +2,7 @@ import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { deleteExercicio } from "../../../services/ExercicioService"
 import { AuthContext } from "../../../context/AuthContext"
+import { ToastAlerta } from "../../../util/ToastAlerta"
 
 export default function DeletarExercicio({
     id,
@@ -31,7 +32,7 @@ export default function DeletarExercicio({
             onClose()
         } catch (error: any) {
             if (error.response?.status === 401) {
-                alert('Sessão expirada. Faça login novamente.')
+                ToastAlerta('Sessão expirada. Faça login novamente.', 'info')
                 handleLogout()
                 onClose()
                 navigate('/')

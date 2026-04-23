@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
 import type Categoria from '../../../models/Categoria'
 import { deleteCategoria, findCategoriaById } from '../../../services/CategoriaService'
+import { ToastAlerta } from '../../../util/ToastAlerta'
 
 function DeletarCategoria() {
 
@@ -31,7 +32,7 @@ function DeletarCategoria() {
             setCategoria(dados)
         } catch (error: any) {
             if (error.toString().includes('401')) {
-                alert('Sessão expirada. Faça login novamente.')
+                ToastAlerta('Sessão expirada. Faça login novamente.', 'info')
                 handleLogout()
                 navigate('/')
             }
@@ -43,7 +44,7 @@ function DeletarCategoria() {
     // Cria um useEffect para monitorar o token
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado!')
+            ToastAlerta('Você precisa estar logado!', 'info')
             navigate('/')
         }
     }, [token])
@@ -63,14 +64,14 @@ function DeletarCategoria() {
         setIsLoading(true)
         try {
             await deleteCategoria(Number(id), token)
-            alert('Categoria deletada com sucesso!')
+            ToastAlerta('Categoria deletada com sucesso!', 'sucesso')
         } catch (error: any) {
             if (error.toString().includes('401')) {
-                alert('Sessão expirada. Faça login novamente.')
+                ToastAlerta('Sessão expirada. Faça login novamente.', 'info')
                 handleLogout()
                 navigate('/')
             } else {
-                alert('Erro ao deletar a categoria!')
+                ToastAlerta('Erro ao deletar a categoria!', 'erro')
             }
         } finally {
             setIsLoading(false)

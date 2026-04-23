@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
 import { atualizarUsuario, buscarUsuario } from '../../services/UsuarioService'
 import type { Usuario } from '../../models/Usuario'
-import { toast } from 'react-toastify'
+import { ToastAlerta } from '../../util/ToastAlerta'
 
 export default function EditarPerfil() {
   const navigate = useNavigate()
@@ -45,7 +45,7 @@ export default function EditarPerfil() {
         senha: ''
       })
     } catch (error: any) {
-      toast.error('Erro ao carregar dados.')
+      ToastAlerta('Erro ao carregar dados.', 'erro')
       if (error.response?.status === 401) handleLogout()
     } finally {
       setIsFetching(false)
@@ -67,7 +67,7 @@ export default function EditarPerfil() {
     e.preventDefault()
 
     if (confirmarSenha !== usuarioEditar.senha) {
-      toast.error('As senhas não coincidem!')
+      ToastAlerta('As senhas não coincidem!', 'erro')
       return
     }
 
@@ -79,7 +79,7 @@ export default function EditarPerfil() {
     }
 
     if (isNaN(pesoFormatado) || pesoFormatado <= 0 || isNaN(alturaFormatada) || alturaFormatada <= 0) {
-      toast.error('Por favor, informe um peso e uma altura válidos!')
+      ToastAlerta('Por favor, informe um peso e uma altura válidos!', 'erro')
       return
     }
 
@@ -94,10 +94,10 @@ export default function EditarPerfil() {
       await atualizarUsuario('/usuarios/atualizar', usuarioEnvio, setUsuarioEditar, {
         headers: { Authorization: usuario.token }
       })
-      toast.success('Perfil atualizado com sucesso!')
-      navigate('/perfil')
+      ToastAlerta('Perfil atualizado com sucesso!', 'sucesso')
+      navigate('/perfil') // Volta para o perfil para ver o IMC recalculado
     } catch (error) {
-      toast.error('Erro ao atualizar o perfil.')
+      ToastAlerta('Erro ao atualizar o perfil.', 'erro')
     } finally {
       setIsLoading(false)
     }

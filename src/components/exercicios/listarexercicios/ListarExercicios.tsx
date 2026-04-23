@@ -7,6 +7,7 @@ import ExercicioCard from "../../../components/exercicios/exerciciocard/Exercici
 
 // LÓGICA INJETADA: Importando a Segurança
 import { AuthContext } from "../../../context/AuthContext"
+import { ToastAlerta } from "../../../util/ToastAlerta"
 
 export default function ListarExercicios() {
     const navigate = useNavigate()
@@ -31,7 +32,7 @@ export default function ListarExercicios() {
     // LÓGICA INJETADA: Proteção de Rota (Expulsa se não estiver logado)
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado!')
+            ToastAlerta('Você precisa estar logado!', 'info')
             navigate('/')
         }
     }, [token])
@@ -47,7 +48,7 @@ export default function ListarExercicios() {
             if (error.response?.status === 401) {
                 setErro("Sessão expirada.")
                 // LÓGICA INJETADA: Segurança adicional se o token vencer
-                alert('Sessão expirada. Faça login novamente.')
+                ToastAlerta('Sessão expirada. Faça login novamente.', 'info')
                 handleLogout()
                 navigate('/')
             } else {
