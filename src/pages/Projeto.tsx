@@ -1,7 +1,8 @@
 import { BarbellIcon, CloudIcon, FileTextIcon, FolderOpenIcon, LightningIcon, UserCircleIcon } from "@phosphor-icons/react"
- 
+import { SiReact, SiTypeorm, SiTypescript, SiPassport, SiVite, SiTailwindcss, SiNestjs, SiNodedotjs, SiMysql, SiPostgresql } from '@icons-pack/react-simple-icons'
+
 function Projeto() {
- 
+
     const stats = [
         {
             value: "47%",
@@ -22,7 +23,7 @@ function Projeto() {
             link: "https://www.gazetadopovo.com.br/vida-e-cidadania/na-era-fitness-apenas-37-dos-alunos-permanecem-um-ano-na-academia-8tzhbmlrjduld8def5tvgqw0k/",
         },
     ]
- 
+
     const features = [
         { icon: <BarbellIcon size={24} color="#38BDF8" />, title: "Gerenciar Exercícios", desc: "Crie e gerencie exercícios com buscas por nome e repetições." },
         { icon: <FolderOpenIcon size={24} color="#38BDF8" />, title: "Gerenciar Categorias", desc: "Organize exercícios em categorias para facilitar a navegação." },
@@ -31,23 +32,10 @@ function Projeto() {
         { icon: <FileTextIcon size={24} color="#38BDF8" />, title: "Documentação Swagger", desc: "Documentação interativa da API para testes e integração." },
         { icon: <CloudIcon size={24} color="#38BDF8" />, title: "Deploy na Nuvem", desc: "Backend no Render com banco de dados PostgreSQL via Neon." },
     ]
- 
-    const techs = [
-        { name: "React", desc: "Biblioteca Frontend", icon: "⚛️" },
-        { name: "TypeScript", desc: "Linguagem", icon: "🔷" },
-        { name: "Vite", desc: "Build", icon: "⚡" },
-        { name: "Tailwind CSS", desc: "Estilização", icon: "🎨" },
-        { name: "NestJS", desc: "Framework Backend", icon: "🐈" },
-        { name: "Node.js", desc: "Servidor", icon: "🟢" },
-        { name: "TypeORM", desc: "ORM", icon: "🗄️" },
-        { name: "MySQL", desc: "Banco Relacional Local", icon: "🐬" },
-        { name: "PostgreSQL + Neon", desc: "Banco de Dados em Nuvem", icon: "☁️" },
-        { name: "JWT + Passport", desc: "Autenticação", icon: "🔐" },
-    ]
- 
+
     return (
-        <div className="min-h-screen bg-[#080D1A] text-[#F0F4FF]">
- 
+        <div className="min-h-screen bg-[#080D1A] text-[#8e9097]">
+
             {/* ── HERO ── */}
             <section className="relative flex flex-col items-center justify-center text-center px-6 py-24 overflow-hidden">
                 {/* Glow */}
@@ -60,7 +48,7 @@ function Projeto() {
                         transform: "translate(-50%, -50%)",
                     }}
                 />
- 
+
                 <h1
                     className="relative z-10 font-['Orbitron'] font-black uppercase tracking-widest mb-4"
                     style={{
@@ -72,13 +60,13 @@ function Projeto() {
                 >
                     SOLARA
                 </h1>
- 
+
                 <p className="relative z-10 max-w-xl text-[#8B9DC3] text-base leading-relaxed">
                     Iluminando hábitos diários e transformando a disciplina dos treinos
                     em uma jornada de saúde guiada e organizada.
                 </p>
             </section>
- 
+
             {/* ── PROBLEMA ── */}
             <section
                 className="px-6 py-20 border-y border-[#1E3056]"
@@ -87,7 +75,7 @@ function Projeto() {
                 <p className="text-center text-[#8B9DC3] text-xs tracking-widest uppercase mb-12">
                     Por que a Solara existe?
                 </p>
- 
+
                 <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6">
                     {stats.map((s) => (
                         <div
@@ -118,7 +106,7 @@ function Projeto() {
                         </div>
                     ))}
                 </div>
- 
+
                 <p className="text-center text-[#F0F4FF] text-base max-w-xl mx-auto mt-12 leading-relaxed">
                     A <span style={{ color: "#F59E0B" }}>Solara</span> entra como resposta a esses três pontos —{" "}
                     <span className="text-[#38BDF8]">acessível</span>,{" "}
@@ -126,7 +114,7 @@ function Projeto() {
                     <span className="text-[#38BDF8]">personalizado</span>.
                 </p>
             </section>
- 
+
             {/* ── O QUE OFERECE ── */}
             <section className="px-6 py-20">
                 <div className="max-w-5xl mx-auto">
@@ -141,7 +129,7 @@ function Projeto() {
                             Ferramentas pensadas para guiar sua evolução física com precisão e foco.
                         </p>
                     </div>
- 
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                         {features.map((f) => (
                             <div
@@ -167,7 +155,7 @@ function Projeto() {
                     </div>
                 </div>
             </section>
- 
+            
             {/* ── TECNOLOGIAS ── */}
             <section
                 className="px-6 py-20 border-t border-[#1E3056]"
@@ -185,22 +173,83 @@ function Projeto() {
                             Stack completa para um sistema full stack moderno e escalável.
                         </p>
                     </div>
- 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                        {techs.map((t) => (
-                            <div
-                                key={t.name}
-                                className="bg-[#111E38] border border-[#1E3056] rounded-xl p-4 text-center transition-all duration-300 hover:border-[#F59E0B] hover:-translate-y-1"
+
+                    {/* Frontend */}
+                    <div className="mb-8">
+                        <div className="flex justify-center mb-6">
+                            <span
+                                className="text-xs tracking-widest uppercase px-4 py-1.5 rounded-full border"
+                                style={{
+                                    color: "#F59E0B",
+                                    borderColor: "#F59E0B",
+                                    background: "rgba(245,158,11,0.08)",
+                                }}
                             >
-                                <div className="text-2xl mb-2">{t.icon}</div>
-                                <p className="text-[#F0F4FF] text-xs font-semibold mb-1">{t.name}</p>
-                                <p className="text-[#4A5A7A] text-[10px]">{t.desc}</p>
-                            </div>
-                        ))}
+                                Frontend
+                            </span>
+                        </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            {[
+                                { name: "React", desc: "Biblioteca", icon: <SiReact size={35} color="#38BDF8" /> },
+                                { name: "TypeScript", desc: "Linguagem", icon: <SiTypescript size={35} color="#38BDF8" /> },
+                                { name: "Vite", desc: "Build", icon: <SiVite size={35} color="#38BDF8" /> },
+                                { name: "Tailwind CSS", desc: "Estilização", icon: <SiTailwindcss size={35} color="#38BDF8" /> },
+                            ].map((t) => (
+                                <div
+                                    key={t.name}
+                                    className="bg-[#111E38] border border-[#1E3056] rounded-xl p-4 flex flex-col items-center text-center transition-all duration-300 hover:border-[#F59E0B] hover:-translate-y-1"
+                                >
+                                    <div className="mb-3 flex items-center justify-center h-12">
+                                        {t.icon}
+                                    </div>
+
+                                    <p className="text-[#F0F4FF] text-xs font-semibold mb-1">{t.name}</p>
+                                    <p className="text-[#4A5A7A] text-[10px]">{t.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Backend */}
+                    <div>
+                        <div className="flex justify-center mb-6">
+                            <span
+                                className="text-xs tracking-widest uppercase px-4 py-1.5 rounded-full border"
+                                style={{
+                                    color: "#F59E0B",
+                                    borderColor: "#F59E0B",
+                                    background: "rgba(245,158,11,0.08)",
+                                }}
+                            >
+                                Backend
+                            </span>
+                        </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                            {[
+                                { name: "NestJS", desc: "Framework", icon: <SiNestjs size={35} color="#38BDF8" /> },
+                                { name: "Node.js", desc: "Servidor", icon: <SiNodedotjs size={35} color="#38BDF8" /> },
+                                { name: "TypeORM", desc: "ORM", icon: <SiTypeorm size={35} color="#38BDF8" /> },
+                                { name: "MySQL", desc: "Banco Local", icon: <SiMysql size={35} className="scale-125" color="#38BDF8" /> },
+                                { name: "PostgreSQL + Neon", desc: "Banco Nuvem", icon: <SiPostgresql size={35} color="#38BDF8" /> },
+                                { name: "JWT + Passport", desc: "Autenticação", icon: <SiPassport size={35} color="#38BDF8" /> },
+                            ].map((t) => (
+                                <div
+                                    key={t.name}
+                                    className="bg-[#111E38] border border-[#1E3056] rounded-xl p-4 flex flex-col items-center text-center transition-all duration-300 hover:border-[#F59E0B] hover:-translate-y-1"
+                                >
+                                    <div className="mb-3 flex items-center justify-center h-12">
+                                        {t.icon}
+                                    </div>
+
+                                    <p className="text-[#F0F4FF] text-xs font-semibold mb-1">{t.name}</p>
+                                    <p className="text-[#4A5A7A] text-[10px]">{t.desc}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
- 
+
             {/* ── IMPLEMENTAÇÕES FUTURAS ── */}
             <section className="px-6 py-20 border-t border-[#1E3056]">
                 <div className="max-w-4xl mx-auto">
@@ -215,7 +264,7 @@ function Projeto() {
                             O que a Solara planeja evoluir.
                         </p>
                     </div>
- 
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         {[
                             { icon: "📈", title: "Histórico de IMC", desc: "Visualização gráfica do progresso corporal ao longo do tempo." },
@@ -247,9 +296,9 @@ function Projeto() {
                     </div>
                 </div>
             </section>
- 
+
         </div>
     )
 }
- 
+
 export default Projeto
