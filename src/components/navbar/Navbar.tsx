@@ -44,7 +44,7 @@ export default function Navbar() {
           <Link to="/sobre" className={`${isActive("/sobre")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>Sobre</Link>
           <Link to="/projeto" className={`${isActive("/projeto")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>O Projeto</Link>
 
-          {/* aparese se estiver logado */}
+          {/* aparece se estiver logado */}
           {usuario.token !== "" && (
             <>
               <Link to="/categorias" className={`${isActive("/categorias")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>Categorias</Link>
