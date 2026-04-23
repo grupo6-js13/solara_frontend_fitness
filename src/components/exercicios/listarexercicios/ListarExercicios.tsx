@@ -1,10 +1,7 @@
 import { useEffect, useState, useContext } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import type Exercicio from "../../../models/Exercicio"
-import {
-    findAllExercicios,
-    findExerciciosByNome,
-} from "../../../services/ExercicioService"
+import { findAllExercicios, findExerciciosByNome } from "../../../services/ExercicioService"
 import ModalConfirmDeleteExercicio from "../deletarexercicio/DeletarExercicio"
 import ExercicioCard from "../../../components/exercicios/exerciciocard/ExercicioCard"
 
@@ -22,6 +19,10 @@ export default function ListarExercicios() {
     const [buscando, setBuscando] = useState(false)
 
     const [deleteTarget, setDeleteTarget] = useState<{ id: number; nome: string } | null>(null)
+
+    // Para busca de exercícios
+    const [searchParams] = useSearchParams()
+    const categoriaId = searchParams.get('categoria')
 
     // LÓGICA INJETADA: Consumindo o Contexto de Autenticação
     const { usuario, handleLogout } = useContext(AuthContext)
@@ -144,14 +145,16 @@ export default function ListarExercicios() {
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                        {exercicios.map((ex) => (
-                            <ExercicioCard
-                                key={ex.id}
-                                exercicio={ex}
-                                onEdit={(id: number) => navigate(`/exercicios/editar/${id}`)}
-                                onDelete={(id: number, nome: string) => setDeleteTarget({ id, nome })}
-                            />
-                        ))}
+                        {exercicios.
+                        filter(ex => categoriaId ? ex.categoria?.id === Number(categoriaId) : true)
+                            .map((ex) => (
+                                <ExercicioCard
+                                    key={ex.id}
+                                    exercicio={ex}
+                                    onEdit={(id: number) => navigate(`/exercicios/editar/${id}`)}
+                                    onDelete={(id: number, nome: string) => setDeleteTarget({ id, nome })}
+                                />
+                            ))}
                     </div>
                 )}
             </div>

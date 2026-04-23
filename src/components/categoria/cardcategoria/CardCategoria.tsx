@@ -39,8 +39,9 @@ function CardCategoria({ categoria }: CardCategoriaProps) {
                     {categoria.descricao || "Sem descrição."}
                 </p>
 
-                <span
-                    className="self-start text-xs font-medium px-2.5 py-1 rounded-full"
+                <Link
+                    to={`/exercicios?categoria=${categoria.id}`}
+                    className="self-start text-xs font-medium px-2.5 py-1 rounded-full transition-all hover:opacity-80"
                     style={{
                         color: "#38BDF8",
                         backgroundColor: "rgba(56,189,248,0.1)",
@@ -48,7 +49,7 @@ function CardCategoria({ categoria }: CardCategoriaProps) {
                     }}
                 >
                     {categoria.exercicios?.length ?? 0} exercício(s)
-                </span>
+                </Link>
             </div>
 
             {/* Ações */}
