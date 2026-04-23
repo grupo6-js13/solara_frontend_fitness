@@ -5,6 +5,7 @@ import { SyncLoader } from 'react-spinners'
 import type Categoria from '../../../models/Categoria'
 import { findAllCategorias } from '../../../services/CategoriaService'
 import CardCategoria from '../cardcategoria/CardCategoria'
+import { ToastAlerta } from '../../../util/ToastAlerta'
 
 function ListarCategorias() {
 
@@ -33,7 +34,7 @@ function ListarCategorias() {
     // Cria um useEffect para monitorar o token
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado!')
+            ToastAlerta('Você precisa estar logado!', 'info')
             navigate('/')
         }
     }, [token])
@@ -52,11 +53,11 @@ function ListarCategorias() {
 
         } catch (error: any) {
             if (error.toString().includes('401')) {
-                alert('Sessão expirada. Faça login novamente.')
+                ToastAlerta('Sessão expirada. Faça login novamente.', 'info')
                 handleLogout() // Bônus de segurança: garante que o estado zere se der 401
                 navigate('/')
             } else {
-                alert('Erro ao carregar as categorias!')
+                ToastAlerta('Erro ao carregar as categorias!', 'erro')
             }
 
         } finally {

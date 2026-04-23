@@ -3,7 +3,7 @@ import type { ChangeEvent, SyntheticEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { cadastrarUsuario } from '../../services/UsuarioService'
 import type { Usuario } from '../../models/Usuario'
-import { toast } from 'react-toastify'
+import { ToastAlerta } from '../../util/ToastAlerta'
 
 export default function Cadastro() {
   const navigate = useNavigate()
@@ -43,7 +43,7 @@ export default function Cadastro() {
     e.preventDefault()
 
     if (confirmarSenha !== usuario.senha) {
-      toast.error('As senhas não coincidem!')
+      ToastAlerta('As senhas não coincidem!', 'erro')
       return
     }
 
@@ -57,7 +57,7 @@ export default function Cadastro() {
     }
 
     if (isNaN(pesoFormatado) || pesoFormatado <= 0 || isNaN(alturaFormatada) || alturaFormatada <= 0) {
-      toast.error('Por favor, informe um peso e uma altura válidos!')
+      ToastAlerta('Por favor, informe um peso e uma altura válidos!', 'erro')
       return
     }
 
@@ -70,9 +70,9 @@ export default function Cadastro() {
     setIsLoading(true)
     try {
       await cadastrarUsuario('/usuarios/cadastrar', usuarioEnvio, setUsuario)
-      toast.success('Usuário cadastrado com sucesso!')
+      ToastAlerta('Usuário cadastrado com sucesso!', 'sucesso')
     } catch (error) {
-      toast.error('Erro ao cadastrar. Verifique os dados.')
+      ToastAlerta('Erro ao cadastrar. Verifique os dados.', 'erro')
     } finally {
       setIsLoading(false)
     }
