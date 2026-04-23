@@ -1,7 +1,7 @@
 import { BarbellIcon, CloudIcon, FileTextIcon, FolderOpenIcon, LightningIcon, UserCircleIcon } from "@phosphor-icons/react"
-
+ 
 function Projeto() {
-
+ 
     const stats = [
         {
             value: "47%",
@@ -22,7 +22,7 @@ function Projeto() {
             link: "https://www.gazetadopovo.com.br/vida-e-cidadania/na-era-fitness-apenas-37-dos-alunos-permanecem-um-ano-na-academia-8tzhbmlrjduld8def5tvgqw0k/",
         },
     ]
-
+ 
     const features = [
         { icon: <BarbellIcon size={24} color="#38BDF8" />, title: "Gerenciar Exercícios", desc: "Crie e gerencie exercícios com buscas por nome e repetições." },
         { icon: <FolderOpenIcon size={24} color="#38BDF8" />, title: "Gerenciar Categorias", desc: "Organize exercícios em categorias para facilitar a navegação." },
@@ -31,7 +31,7 @@ function Projeto() {
         { icon: <FileTextIcon size={24} color="#38BDF8" />, title: "Documentação Swagger", desc: "Documentação interativa da API para testes e integração." },
         { icon: <CloudIcon size={24} color="#38BDF8" />, title: "Deploy na Nuvem", desc: "Backend no Render com banco de dados PostgreSQL via Neon." },
     ]
-
+ 
     const techs = [
         { name: "React", desc: "Biblioteca Frontend", icon: "⚛️" },
         { name: "TypeScript", desc: "Linguagem", icon: "🔷" },
@@ -44,9 +44,10 @@ function Projeto() {
         { name: "PostgreSQL + Neon", desc: "Banco de Dados em Nuvem", icon: "☁️" },
         { name: "JWT + Passport", desc: "Autenticação", icon: "🔐" },
     ]
+ 
     return (
         <div className="min-h-screen bg-[#080D1A] text-[#F0F4FF]">
-
+ 
             {/* ── HERO ── */}
             <section className="relative flex flex-col items-center justify-center text-center px-6 py-24 overflow-hidden">
                 {/* Glow */}
@@ -59,7 +60,7 @@ function Projeto() {
                         transform: "translate(-50%, -50%)",
                     }}
                 />
-
+ 
                 <h1
                     className="relative z-10 font-['Orbitron'] font-black uppercase tracking-widest mb-4"
                     style={{
@@ -71,15 +72,13 @@ function Projeto() {
                 >
                     SOLARA
                 </h1>
-
-                <p
-                    className="relative z-10 max-w-xl text-[#8B9DC3] text-base leading-relaxed"
-                >
+ 
+                <p className="relative z-10 max-w-xl text-[#8B9DC3] text-base leading-relaxed">
                     Iluminando hábitos diários e transformando a disciplina dos treinos
                     em uma jornada de saúde guiada e organizada.
                 </p>
             </section>
-
+ 
             {/* ── PROBLEMA ── */}
             <section
                 className="px-6 py-20 border-y border-[#1E3056]"
@@ -88,8 +87,8 @@ function Projeto() {
                 <p className="text-center text-[#8B9DC3] text-xs tracking-widest uppercase mb-12">
                     Por que a Solara existe?
                 </p>
-
-                <div className="max-w-5xl mx-auto grid grid-cols-3 gap-6">
+ 
+                <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6">
                     {stats.map((s) => (
                         <div
                             key={s.value}
@@ -116,21 +115,18 @@ function Projeto() {
                             >
                                 ({s.fonte})
                             </a>
-
                         </div>
                     ))}
                 </div>
-
-                <p
-                    className="text-center text-[#F0F4FF] text-base max-w-xl mx-auto mt-12 leading-relaxed"
-                >
+ 
+                <p className="text-center text-[#F0F4FF] text-base max-w-xl mx-auto mt-12 leading-relaxed">
                     A <span style={{ color: "#F59E0B" }}>Solara</span> entra como resposta a esses três pontos —{" "}
                     <span className="text-[#38BDF8]">acessível</span>,{" "}
                     <span className="text-[#38BDF8]">organizado</span> e{" "}
                     <span className="text-[#38BDF8]">personalizado</span>.
                 </p>
             </section>
-
+ 
             {/* ── O QUE OFERECE ── */}
             <section className="px-6 py-20">
                 <div className="max-w-5xl mx-auto">
@@ -145,8 +141,8 @@ function Projeto() {
                             Ferramentas pensadas para guiar sua evolução física com precisão e foco.
                         </p>
                     </div>
-
-                    <div className="grid grid-cols-3 gap-5">
+ 
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                         {features.map((f) => (
                             <div
                                 key={f.title}
@@ -171,7 +167,7 @@ function Projeto() {
                     </div>
                 </div>
             </section>
-
+ 
             {/* ── TECNOLOGIAS ── */}
             <section
                 className="px-6 py-20 border-t border-[#1E3056]"
@@ -189,8 +185,8 @@ function Projeto() {
                             Stack completa para um sistema full stack moderno e escalável.
                         </p>
                     </div>
-
-                    <div className="grid grid-cols-5 gap-4">
+ 
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                         {techs.map((t) => (
                             <div
                                 key={t.name}
@@ -204,7 +200,7 @@ function Projeto() {
                     </div>
                 </div>
             </section>
-
+ 
             {/* ── IMPLEMENTAÇÕES FUTURAS ── */}
             <section className="px-6 py-20 border-t border-[#1E3056]">
                 <div className="max-w-4xl mx-auto">
@@ -219,8 +215,8 @@ function Projeto() {
                             O que a Solara planeja evoluir.
                         </p>
                     </div>
-
-                    <div className="grid grid-cols-2 gap-5">
+ 
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         {[
                             { icon: "📈", title: "Histórico de IMC", desc: "Visualização gráfica do progresso corporal ao longo do tempo." },
                             { icon: "🤖", title: "Sugestão Automática de Treinos", desc: "Recomendações personalizadas por IMC e perfil do usuário." },
@@ -251,9 +247,9 @@ function Projeto() {
                     </div>
                 </div>
             </section>
-
+ 
         </div>
     )
 }
-
+ 
 export default Projeto

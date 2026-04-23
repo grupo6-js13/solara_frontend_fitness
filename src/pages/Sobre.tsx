@@ -35,13 +35,13 @@ const team = [
     linkedin: "https://www.linkedin.com/in/jhonatha-oliveira/",
   },
 ]
-
+ 
 function Sobre() {
   return (
     <div className="min-h-screen bg-[#080D1A]">
-
+ 
       {/* HERO */}
-      <section className="relative text-center px-10 pt-20 pb-16 border-b border-[#1E3056] overflow-hidden">
+      <section className="relative text-center px-6 sm:px-10 pt-20 pb-16 border-b border-[#1E3056] overflow-hidden">
         {/* Glow */}
         <div
           className="absolute pointer-events-none"
@@ -52,7 +52,7 @@ function Sobre() {
             transform: "translate(-50%, -50%)",
           }}
         />
-
+ 
         <span
           className="relative z-10 mb-6 inline-block rounded-full border px-4 py-1 text-xs tracking-widest uppercase"
           style={{
@@ -63,7 +63,7 @@ function Sobre() {
         >
           ✦ Quem somos
         </span>
-
+ 
         <div className="flex justify-center mb-6">
           <img
             src="https://ik.imagekit.io/jeaninny/Logo_digital_em_vetor_orbyte.png?updatedAt=1776205137349"
@@ -72,21 +72,21 @@ function Sobre() {
             style={{ filter: "drop-shadow(0 0 12px rgba(56,189,248,0.3))" }}
           />
         </div>
-
+ 
         <p className="relative z-10 text-[#8B9DC3] text-sm tracking-widest mb-4">
           Onde ideias orbitam em torno de conhecimento e tecnologia
         </p>
-
+ 
         <p className="relative z-10 max-w-xl mx-auto text-[#8B9DC3] text-sm leading-relaxed">
           Somos um time da Turma JavaScript 13 do Bootcamp de Desenvolvimento Full Stack da Generation Brasil.
           Unimos conhecimento, criatividade e tecnologia em nossos projetos.
         </p>
       </section>
-
+ 
       {/* TEAM */}
       <section className="w-full flex justify-center px-6 py-20">
         <div className="w-full max-w-5xl">
-
+ 
           <div className="text-center mb-16">
             <h2 className="font-['Orbitron'] text-3xl font-bold text-[#F0F4FF] mb-4">
               Nossa equipe
@@ -95,16 +95,12 @@ function Sobre() {
               Conheça as pessoas por trás da Solara.
             </p>
           </div>
-
+ 
           <div className="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
             {team.map((member) => (
               <div
                 key={member.name}
-                className="bg-[#111E38] border border-[#1E3056]
-        rounded-2xl p-6 flex flex-col items-center text-center
-        transition-all duration-300 hover:-translate-y-1.5
-        cursor-default"
-                style={{ width: "calc(33.333% - 16px)", minWidth: 260 }}
+                className="bg-[#111E38] border border-[#1E3056] rounded-2xl p-6 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1.5 cursor-default w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
                 onMouseEnter={e => (e.currentTarget.style.borderColor = "#F59E0B")}
                 onMouseLeave={e => (e.currentTarget.style.borderColor = "#1E3056")}
               >
@@ -113,19 +109,19 @@ function Sobre() {
                   alt={member.name}
                   className="w-24 h-24 rounded-full mb-4 border-2 border-[#1E3056] object-cover"
                 />
-
+ 
                 <h3 className="font-['Orbitron'] text-sm font-semibold text-[#F0F4FF] mb-1">
                   {member.name}
                 </h3>
-
+ 
                 <span className="text-[#F59E0B] text-xs mb-3">
                   {member.role}
                 </span>
-
+ 
                 <p className="text-[#8B9DC3] text-xs leading-relaxed mb-5">
                   {member.description}
                 </p>
-
+ 
                 <div className="flex gap-3 mt-auto">
                   <a
                     href={`https://github.com/${member.github}`}
@@ -149,9 +145,9 @@ function Sobre() {
           </div>
         </div>
       </section>
-
+ 
     </div>
   )
 }
-
+ 
 export default Sobre
