@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 function Home() {
 
     return (
-        <div className="min-h-screen w-full" style={{ background: "#080D1A" }}>
+        <div className="min-h-screen w-full" style={{ background: "#040e27" }}>
 
             <section
                 className="relative flex flex-col items-center justify-center text-center"
