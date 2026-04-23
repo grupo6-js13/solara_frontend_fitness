@@ -1,225 +1,157 @@
-import { useEffect, useRef } from "react";
-import { Team } from "../components/sobre/Team";
- 
-const stats = [
-  { value: "47%", label: "Redução no custo\nde deslocamento" },
-  { value: "45%", label: "Menos veículos\nnas ruas" },
-  { value: "64%", label: "Mais eficiência\nnas rotas" },
-];
- 
-const sections = [
+const team = [
   {
-    title: "Por que o Astra existe?",
-    text: "O Astra surgiu para enfrentar desafios comuns no deslocamento de universitários e propor uma alternativa mais eficiente.",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5 stroke-amber-400 fill-none stroke-[1.5]">
-        <circle cx="12" cy="12" r="10" />
-        <line x1="12" y1="8" x2="12" y2="12" />
-        <line x1="12" y1="16" x2="12.01" y2="16" />
-      </svg>
-    ),
+    name: "Sofia Sabrina",
+    role: "UI Developer & Designer",
+    description: "Responsável pela identidade visual da Solara, da paleta à tipografia, e implementação dos componentes de layout globais do projeto.",
+    github: "frsofitware",
+    linkedin: "https://www.linkedin.com/in/sofia-sabrina-silva",
   },
   {
-    title: "O Problema",
-    text: "O deslocamento diário de universitários pode ser caro, ineficiente e cansativo. Muitos carros circulam com apenas uma pessoa, contribuindo para o aumento do trânsito e dos custos individuais de transporte.",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5 stroke-amber-400 fill-none stroke-[1.5]">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-      </svg>
-    ),
+    name: "Jeaninny Teixeira",
+    role: "Frontend Developer",
+    description: "Responsável por componentes, Design System e padronização do projeto.",
+    github: "jeaninny",
+    linkedin: "https://www.linkedin.com/in/jeaninnyteixeira",
   },
   {
-    title: "A Solução",
-    text: "O Astra conecta universitários que compartilham trajetos, permitindo dividir custos, reduzir o número de veículos nas ruas e tornar o transporte mais acessível, organizado e sustentável.",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5 stroke-amber-400 fill-none stroke-[1.5]">
-        <polyline points="20 6 9 17 4 12" />
-      </svg>
-    ),
+    name: "Josué Bravo",
+    role: "Frontend Developer",
+    description: "Responsável por componentes e integração com o backend.",
+    github: "Josue-Bravo",
+    linkedin: "https://linkedin.com/in/josue-bravo",
   },
   {
-    title: "Sobre o Projeto",
-    text: "O Astra é um projeto desenvolvido como parte de um projeto integrador, com o objetivo de aplicar na prática conceitos de desenvolvimento web, design de interfaces e organização de sistemas.",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5 stroke-amber-400 fill-none stroke-[1.5]">
-        <rect x="2" y="3" width="20" height="14" rx="2" />
-        <line x1="8" y1="21" x2="16" y2="21" />
-        <line x1="12" y1="17" x2="12" y2="21" />
-      </svg>
-    ),
+    name: "Marcus Wendell",
+    role: "Full Stack Developer",
+    description: "Desenvolvimento de funcionalidades core e lógica de navegação.",
+    github: "mwendellsmce",
+    linkedin: "https://www.linkedin.com/in/marcus-wendell",
   },
   {
-    title: "Construção",
-    text: "A aplicação foi construída com foco em simplicidade e usabilidade, permitindo o gerenciamento de viagens e veículos de forma eficiente, enquanto explora boas práticas de desenvolvimento e experiência do usuário.",
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-5 h-5 stroke-amber-400 fill-none stroke-[1.5]">
-        <path d="M12 20h9" />
-        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-      </svg>
-    ),
-    full: true,
+    name: "Jhonatha Oliveira",
+    role: "Frontend Developer",
+    description: "Responsável pelas páginas institucionais do projeto.",
+    github: "Bfr-Jhon",
+    linkedin: "https://www.linkedin.com/in/jhonatha-oliveira/",
   },
-];
- 
-function StarCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
- 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
- 
-    const draw = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < 220; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const r = Math.random() * 1.2;
-        const op = Math.random() * 0.5 + 0.1;
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${op})`;
-        ctx.fill();
-      }
-    };
- 
-    draw();
-    window.addEventListener("resize", draw);
-    return () => window.removeEventListener("resize", draw);
-  }, []);
- 
+]
+
+function Sobre() {
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
-    />
-  );
-}
- 
-function Divider() {
-  return (
-    <div
-      className="w-full h-px"
-      style={{
-        background:
-          "linear-gradient(to right, transparent, #e8a020 30%, #e8a020 70%, transparent)",
-      }}
-    />
-  );
-}
- 
-function SectionCard({
-  title,
-  text,
-  icon,
-  full = false,
-}: {
-  title: string;
-  text: string;
-  icon: React.ReactNode;
-  full?: boolean;
-}) {
-  return (
-    <div
-      className={`relative overflow-hidden rounded-sm border border-amber-900/30 bg-[#0e1520] p-8 ${
-        full ? "col-span-2" : ""
-      }`}
-    >
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: "linear-gradient(to right, #e8a020, transparent)" }}
-      />
-      <div className="w-10 h-10 border border-amber-400/40 rounded-sm flex items-center justify-center mb-4">
-        {icon}
-      </div>
-      <h3 className="text-xs font-bold text-amber-400 uppercase tracking-[2px] mb-3">
-        {title}
-      </h3>
-      <p className="text-sm text-slate-400 leading-relaxed">{text}</p>
-    </div>
-  );
-}
- 
-export default function Sobre() {
-  return (
-    <div
-      className="relative min-h-screen overflow-hidden"
-      style={{ background: "#0a0d14", color: "#e8e0d0" }}
-    >
-      <StarCanvas />
- 
+    <div className="min-h-screen bg-[#080D1A]">
+
       {/* HERO */}
-      <section className="relative z-10 text-center px-10 pt-20 pb-16">
-        <div className="inline-block border border-amber-400 text-amber-400 text-[10px] tracking-[3px] uppercase px-4 py-1 rounded-sm mb-6">
-          ◆ Conheça o projeto ◆
-        </div>
-        <h1
-          className="text-5xl font-black uppercase tracking-[4px] text-amber-400 leading-none mb-2"
-          style={{ textShadow: "0 0 40px rgba(232,160,32,0.3)" }}
+      <section className="relative text-center px-10 pt-20 pb-16 border-b border-[#1E3056] overflow-hidden">
+        {/* Glow */}
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            width: 600, height: 400,
+            background: "radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 70%)",
+            top: "50%", left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        />
+
+        <span
+          className="relative z-10 mb-6 inline-block rounded-full border px-4 py-1 text-xs tracking-widest uppercase"
+          style={{
+            borderColor: "#F59E0B",
+            color: "#F59E0B",
+            background: "rgba(245,158,11,0.08)",
+          }}
         >
-          ASTRA
-        </h1>
-        <p className="text-xs text-slate-500 tracking-widest mb-10">
-          Uma aplicação desenvolvida para conectar universitários
+          ✦ Quem somos
+        </span>
+
+        <div className="flex justify-center mb-6">
+          <img
+            src="https://ik.imagekit.io/jeaninny/Logo_digital_em_vetor_orbyte.png?updatedAt=1776205137349"
+            alt="Orbyte"
+            className="h-20 object-contain opacity-80 hover:opacity-100 transition-all duration-300"
+            style={{ filter: "drop-shadow(0 0 12px rgba(56,189,248,0.3))" }}
+          />
+        </div>
+
+        <p className="relative z-10 text-[#8B9DC3] text-sm tracking-widest mb-4">
+          Onde ideias orbitam em torno de conhecimento e tecnologia
         </p>
-        <p className="max-w-xl mx-auto text-sm text-slate-400 leading-relaxed">
-          Uma aplicação desenvolvida para conectar universitários, otimizar
-          deslocamentos e tornar o transporte mais acessível e colaborativo.
+
+        <p className="relative z-10 max-w-xl mx-auto text-[#8B9DC3] text-sm leading-relaxed">
+          Somos um time da Turma JavaScript 13 do Bootcamp de Desenvolvimento Full Stack da Generation Brasil.
+          Unimos conhecimento, criatividade e tecnologia em nossos projetos.
         </p>
       </section>
- 
-      <Divider />
- 
-      {/* STATS */}
-      <section className="relative z-10 bg-[#0e1520] border-y border-amber-400/30 px-10 py-10">
-        <div className="max-w-3xl mx-auto flex justify-center">
-          {stats.map((s, i) => (
-            <div
-              key={i}
-              className={`flex-1 text-center px-8 ${
-                i < stats.length - 1 ? "border-r border-amber-400/20" : ""
-              }`}
-            >
-              <div className="text-4xl font-black text-amber-400 tracking-widest">
-                {s.value}
+
+      {/* TEAM */}
+      <section className="w-full flex justify-center px-6 py-20">
+        <div className="w-full max-w-5xl">
+
+          <div className="text-center mb-16">
+            <h2 className="font-['Orbitron'] text-3xl font-bold text-[#F0F4FF] mb-4">
+              Nossa equipe
+            </h2>
+            <p className="text-[#8B9DC3] text-base max-w-md mx-auto">
+              Conheça as pessoas por trás da Solara.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
+            {team.map((member) => (
+              <div
+                key={member.name}
+                className="bg-[#111E38] border border-[#1E3056]
+        rounded-2xl p-6 flex flex-col items-center text-center
+        transition-all duration-300 hover:-translate-y-1.5
+        cursor-default"
+                style={{ width: "calc(33.333% - 16px)", minWidth: 260 }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = "#F59E0B")}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = "#1E3056")}
+              >
+                <img
+                  src={`https://github.com/${member.github}.png`}
+                  alt={member.name}
+                  className="w-24 h-24 rounded-full mb-4 border-2 border-[#1E3056] object-cover"
+                />
+
+                <h3 className="font-['Orbitron'] text-sm font-semibold text-[#F0F4FF] mb-1">
+                  {member.name}
+                </h3>
+
+                <span className="text-[#F59E0B] text-xs mb-3">
+                  {member.role}
+                </span>
+
+                <p className="text-[#8B9DC3] text-xs leading-relaxed mb-5">
+                  {member.description}
+                </p>
+
+                <div className="flex gap-3 mt-auto">
+                  <a
+                    href={`https://github.com/${member.github}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xs px-3 py-1.5 rounded-lg border border-[#1E3056] text-[#8B9DC3] hover:border-[#F59E0B] hover:text-[#F59E0B] transition-all"
+                  >
+                    GitHub
+                  </a>
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xs px-3 py-1.5 rounded-lg border border-[#38BDF8]/40 text-[#38BDF8] hover:bg-[#38BDF8]/10 transition-all"
+                  >
+                    LinkedIn
+                  </a>
+                </div>
               </div>
-              <div className="text-[11px] text-slate-500 tracking-wide mt-2 uppercase whitespace-pre-line leading-relaxed">
-                {s.label}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
- 
-      <Divider />
- 
-      {/* ABOUT SECTIONS */}
-      <section className="relative z-10 px-10 py-16 max-w-4xl mx-auto">
-        <div className="grid grid-cols-2 gap-6">
-          {sections.map((s, i) => (
-            <SectionCard
-              key={i}
-              title={s.title}
-              text={s.text}
-              icon={s.icon}
-              full={s.full}
-            />
-          ))}
-        </div>
-      </section>
- 
-      <Divider />
- 
-      {/* TEAM — componente externo */}
-      <div className="relative z-10">
-        <Team />
-      </div>
- 
-      <div className="h-16" />
+
     </div>
-  );
+  )
 }
- 
+
+export default Sobre
