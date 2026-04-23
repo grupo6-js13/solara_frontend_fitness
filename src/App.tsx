@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 
-// Importações das Páginas Estáticas (O que veio da branch home)
+// Importações das Páginas Estáticas 
 import Home from "./pages/Home";
 import Sobre from "./pages/Sobre";
 

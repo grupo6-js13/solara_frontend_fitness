@@ -39,16 +39,16 @@ export default function Navbar() {
 
         {/* Links Centrais */}
         <div className="flex items-center gap-8">
-          {usuario.token !== "" ? (
+          {/* sempre aparece */}
+          <Link to="/" className={`${isActive("/")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>Home</Link>
+          <Link to="/sobre" className={`${isActive("/sobre")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>Sobre</Link>
+          <Link to="/projeto" className={`${isActive("/projeto")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>O Projeto</Link>
+
+          {/* aparese se estiver logado */}
+          {usuario.token !== "" && (
             <>
               <Link to="/categorias" className={`${isActive("/categorias")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>Categorias</Link>
               <Link to="/exercicios" className={`${isActive("/exercicios")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>Exercícios</Link>
-            </>
-          ) : (
-            <>
-              <Link to="/" className={`${isActive("/")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>Home</Link>
-              <Link to="/sobre" className={`${isActive("/sobre")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>Sobre</Link>
-              <Link to="/projeto" className={`${isActive("/projeto")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-white transition-all`}>O Projeto</Link>
             </>
           )}
         </div>
