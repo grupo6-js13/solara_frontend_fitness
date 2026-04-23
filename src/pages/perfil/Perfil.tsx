@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom'
 import { buscarUsuario } from '../../services/UsuarioService'
 import type { Usuario } from '../../models/Usuario'
 import { toast } from 'react-toastify'
- 
+
 export default function Perfil() {
   const { usuario, handleLogout } = useContext(AuthContext)
   const navigate = useNavigate()
- 
+
+  const [isFetching, setIsFetching] = useState(true)
+
   const [usuarioCompleto, setUsuarioCompleto] = useState<Usuario>({
     id: 0,
     nome: '',
@@ -20,7 +22,7 @@ export default function Perfil() {
     altura: 0,
     imc: 0
   })
- 
+
   useEffect(() => {
     if (usuario.token === '') {
       navigate('/login')
@@ -28,34 +30,35 @@ export default function Perfil() {
       buscarDadosPerfil()
     }
   }, [usuario.token])
- 
+
   async function buscarDadosPerfil() {
+    setIsFetching(true)
     try {
       await buscarUsuario(`/usuarios/${usuario.id}`, setUsuarioCompleto, {
-        headers: {
-          Authorization: usuario.token
-        }
+        headers: { Authorization: usuario.token }
       })
     } catch (error: any) {
       toast.error('Erro ao carregar os dados do perfil.')
       if (error.response?.status === 401 || error.response?.status === 403) {
         handleLogout()
       }
+    } finally {
+      setIsFetching(false)
     }
   }
- 
+
   function sair() {
     handleLogout()
     navigate('/login')
   }
- 
+
   function formatarData(dataIso: string | undefined) {
     if (!dataIso) return '--/--/----'
     const data = new Date(dataIso)
     data.setMinutes(data.getMinutes() + data.getTimezoneOffset())
     return data.toLocaleDateString('pt-BR')
   }
- 
+
   function getImcInfo(imc: number) {
     if (!imc || imc <= 0) return { texto: 'Não calculado', cor: 'text-[#8B9DC3]', bg: 'bg-[#111E38]', border: 'border-[#1E3056]' }
     if (imc < 18.5) return { texto: 'Abaixo do peso', cor: 'text-[#38BDF8]', bg: 'bg-[#38BDF8]/10', border: 'border-[#38BDF8]/30' }
@@ -64,10 +67,10 @@ export default function Perfil() {
     if (imc >= 30 && imc <= 34.9) return { texto: 'Obesidade Grau I', cor: 'text-[#FB923C]', bg: 'bg-[#FB923C]/10', border: 'border-[#FB923C]/30' }
     return { texto: 'Obesidade Grau II ou +', cor: 'text-[#F87171]', bg: 'bg-[#F87171]/10', border: 'border-[#F87171]/30' }
   }
- 
+
   const imcNumerico = usuarioCompleto.imc ? Number(usuarioCompleto.imc) : 0
   const imcInfo = getImcInfo(imcNumerico)
- 
+
   if (usuario.token === '') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#080D1A]">
@@ -75,11 +78,22 @@ export default function Perfil() {
       </div>
     )
   }
- 
+
+  if (isFetching) {
+    return (
+      <div className="min-h-screen bg-[#080D1A] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-10 h-10 border-4 border-[#1E3056] border-t-[#F59E0B] rounded-full animate-spin" />
+          <p className="text-[#8B9DC3] text-sm">Carregando perfil...</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-[#080D1A] py-16 px-6">
       <div className="max-w-4xl mx-auto">
- 
+
         {/* Header do perfil */}
         <div className="bg-[#0D1528] border border-[#1E3056] rounded-3xl p-6 sm:p-10 flex flex-col sm:flex-row items-center sm:justify-between gap-6 sm:gap-8 mb-6 text-center sm:text-left">
           <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
@@ -97,7 +111,7 @@ export default function Perfil() {
               <p className="text-[#8B9DC3] text-sm">{usuarioCompleto.usuario || usuario.usuario}</p>
             </div>
           </div>
- 
+
           <div className="flex gap-4 justify-center sm:justify-end">
             <button
               onClick={() => navigate('/perfil/editar')}
@@ -113,10 +127,10 @@ export default function Perfil() {
             </button>
           </div>
         </div>
- 
+
         {/* Cards de dados */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
- 
+
           {/* Dados Pessoais */}
           <div className="bg-[#0D1528] border border-[#1E3056] rounded-2xl p-5 sm:p-8">
             <h2 className="font-['Orbitron'] text-sm font-bold tracking-widest uppercase mb-6 text-[#F0F4FF]">
@@ -137,7 +151,7 @@ export default function Perfil() {
               </div>
             </div>
           </div>
- 
+
           {/* Métricas Corporais */}
           <div className="bg-[#0D1528] border border-[#1E3056] rounded-2xl p-5 sm:p-8">
             <h2 className="font-['Orbitron'] text-sm font-bold tracking-widest uppercase mb-6 text-[#F0F4FF]">
@@ -153,7 +167,7 @@ export default function Perfil() {
                 <p className="text-[#F0F4FF] font-bold">{usuarioCompleto.altura ? `${usuarioCompleto.altura} m` : '--'}</p>
               </div>
             </div>
- 
+
             <div className={`${imcInfo.bg} border ${imcInfo.border} rounded-2xl p-6 text-center transition-colors`}>
               <p className={`${imcInfo.cor} text-xs uppercase tracking-widest mb-2 font-semibold`}>Seu IMC</p>
               <p className={`font-['Orbitron'] text-4xl font-extrabold ${imcInfo.cor} mb-2`}>
@@ -164,7 +178,7 @@ export default function Perfil() {
               </span>
             </div>
           </div>
- 
+
         </div>
       </div>
     </div>

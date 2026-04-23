@@ -28,9 +28,11 @@ function CardCategoria({ categoria }: CardCategoriaProps) {
                 style={{ borderBottom: "1px solid #1E3056" }}
             >
                 <span className="text-2xl">
-                    {categoria.icone && !categoria.icone.includes('.')
-                        ? categoria.icone
-                        : '🏷️'
+                    {categoria.icone && categoria.icone.startsWith('http')
+                        ? <img src={categoria.icone} alt={categoria.nome} className="w-8 h-8 object-contain rounded" />
+                        : categoria.icone && !categoria.icone.includes('.')
+                            ? categoria.icone
+                            : '🏷️'
                     }
                 </span>
                 <h3 className="text-sm font-semibold text-[#F0F4FF] line-clamp-2">

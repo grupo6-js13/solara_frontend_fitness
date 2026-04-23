@@ -13,7 +13,7 @@ import { AuthContext } from "../../../context/AuthContext"
 
 export default function FormExercicio() {
 
-    const IMAGEM_PADRAO = "https://via.placeholder.com/300x200?text=Exercicio"
+    const IMAGEM_PADRAO = "https://placehold.co/300x200?text=Exercicio"
 
     const { id } = useParams()
     const navigate = useNavigate()
@@ -81,7 +81,7 @@ export default function FormExercicio() {
         if (token !== '') {
             init()
         }
-        
+
         return () => { mounted = false }
 
     }, [id, token])
@@ -95,7 +95,15 @@ export default function FormExercicio() {
         }
 
         try {
-            new URL(url)
+            const parsed = new URL(url)
+            const path = parsed.pathname.toLowerCase()
+            const extensoesAceitas = [".jpg", ".jpeg", ".png", ".webp", ".gif"]
+            const extensaoValida = extensoesAceitas.some(ext => path.endsWith(ext))
+
+            if (!extensaoValida) {
+                setImagemValida(false)
+                return
+            }
         } catch {
             setImagemValida(false)
             return
@@ -103,7 +111,6 @@ export default function FormExercicio() {
 
         const img = new Image()
         img.src = url
-
         img.onload = () => setImagemValida(true)
         img.onerror = () => setImagemValida(false)
     }

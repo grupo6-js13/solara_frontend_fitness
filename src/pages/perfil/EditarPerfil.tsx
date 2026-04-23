@@ -5,14 +5,15 @@ import { AuthContext } from '../../context/AuthContext'
 import { atualizarUsuario, buscarUsuario } from '../../services/UsuarioService'
 import type { Usuario } from '../../models/Usuario'
 import { toast } from 'react-toastify'
- 
+
 export default function EditarPerfil() {
   const navigate = useNavigate()
   const { usuario, handleLogout } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
- 
+
   const [confirmarSenha, setConfirmarSenha] = useState('')
- 
+  const [isFetching, setIsFetching] = useState(true) // começa true porque já busca na montagem
+
   const [usuarioEditar, setUsuarioEditar] = useState<Usuario>({
     id: 0,
     nome: '',
@@ -23,7 +24,7 @@ export default function EditarPerfil() {
     peso: 0,
     altura: 0
   })
- 
+
   useEffect(() => {
     if (usuario.token === '') {
       navigate('/login')
@@ -31,8 +32,9 @@ export default function EditarPerfil() {
       buscarDadosAtuais()
     }
   }, [usuario.token])
- 
+
   async function buscarDadosAtuais() {
+    setIsFetching(true)
     try {
       let userTemp: any = {}
       await buscarUsuario(`/usuarios/${usuario.id}`, (dados: Usuario) => { userTemp = dados }, {
@@ -45,46 +47,48 @@ export default function EditarPerfil() {
     } catch (error: any) {
       toast.error('Erro ao carregar dados.')
       if (error.response?.status === 401) handleLogout()
+    } finally {
+      setIsFetching(false)
     }
   }
- 
+
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
     setUsuarioEditar({
       ...usuarioEditar,
       [e.target.name]: e.target.value
     } as any)
   }
- 
+
   function handleConfirmarSenha(e: ChangeEvent<HTMLInputElement>) {
     setConfirmarSenha(e.target.value)
   }
- 
+
   async function atualizar(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault()
- 
+
     if (confirmarSenha !== usuarioEditar.senha) {
       toast.error('As senhas não coincidem!')
       return
     }
- 
+
     let pesoFormatado = parseFloat(String(usuarioEditar.peso).replace(',', '.'))
     let alturaFormatada = parseFloat(String(usuarioEditar.altura).replace(',', '.'))
- 
+
     if (alturaFormatada > 3) {
       alturaFormatada = alturaFormatada / 100
     }
- 
+
     if (isNaN(pesoFormatado) || pesoFormatado <= 0 || isNaN(alturaFormatada) || alturaFormatada <= 0) {
       toast.error('Por favor, informe um peso e uma altura válidos!')
       return
     }
- 
+
     const usuarioEnvio = {
       ...usuarioEditar,
       peso: pesoFormatado,
       altura: alturaFormatada
     }
- 
+
     setIsLoading(true)
     try {
       await atualizarUsuario('/usuarios/atualizar', usuarioEnvio, setUsuarioEditar, {
@@ -98,7 +102,18 @@ export default function EditarPerfil() {
       setIsLoading(false)
     }
   }
- 
+
+  if (isFetching) {
+    return (
+      <div className="min-h-screen bg-[#080D1A] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-10 h-10 border-4 border-[#1E3056] border-t-[#F59E0B] rounded-full animate-spin" />
+          <p className="text-[#8B9DC3] text-sm">Carregando perfil...</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-[#080D1A] py-16 px-6">
       <div className="max-w-xl mx-auto">
@@ -108,14 +123,14 @@ export default function EditarPerfil() {
         >
           ← Voltar para o Perfil
         </button>
- 
+
         <h1 className="font-['Orbitron'] text-2xl font-bold text-[#F0F4FF] mb-10">
           Editar Perfil
         </h1>
- 
+
         <div className="bg-[#0D1528] border border-[#1E3056] rounded-2xl p-6 sm:p-10">
           <form onSubmit={atualizar} className="flex flex-col gap-5">
- 
+
             <div>
               <label className="block text-[#8B9DC3] text-xs font-semibold tracking-widest uppercase mb-2">Nome Completo</label>
               <input
@@ -127,7 +142,7 @@ export default function EditarPerfil() {
                 className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
               />
             </div>
- 
+
             <div>
               <label className="block text-[#8B9DC3] text-xs font-semibold tracking-widest uppercase mb-2">E-mail</label>
               <input
@@ -139,7 +154,7 @@ export default function EditarPerfil() {
                 className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
               />
             </div>
- 
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[#8B9DC3] text-xs font-semibold tracking-widest uppercase mb-2">Sua Senha (Obrigatório)</label>
@@ -166,7 +181,7 @@ export default function EditarPerfil() {
                 />
               </div>
             </div>
- 
+
             <div>
               <label className="block text-[#8B9DC3] text-xs font-semibold tracking-widest uppercase mb-2">URL da Foto</label>
               <input
@@ -177,7 +192,7 @@ export default function EditarPerfil() {
                 className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
               />
             </div>
- 
+
             <div>
               <label className="block text-[#8B9DC3] text-xs font-semibold tracking-widest uppercase mb-2">Data de Nascimento</label>
               <input
@@ -189,7 +204,7 @@ export default function EditarPerfil() {
                 className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
               />
             </div>
- 
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-[#8B9DC3] text-xs font-semibold tracking-widest uppercase mb-2">Peso (kg)</label>
@@ -218,7 +233,7 @@ export default function EditarPerfil() {
                 />
               </div>
             </div>
- 
+
             <div className="flex gap-3 mt-4">
               <button
                 type="button"
@@ -235,7 +250,7 @@ export default function EditarPerfil() {
                 {isLoading ? 'Salvando...' : 'Salvar Alterações'}
               </button>
             </div>
- 
+
           </form>
         </div>
       </div>
