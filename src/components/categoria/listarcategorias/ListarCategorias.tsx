@@ -68,7 +68,7 @@ function ListarCategorias() {
         <div className="min-h-screen bg-[#080D1A] py-16 px-6">
             <div className="max-w-5xl mx-auto">
 
-                <div className="flex justify-between items-center mb-10">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-10">
                     <div>
                         <p className="text-[#8B9DC3] text-xs tracking-widest uppercase mb-2">
                             Gerenciamento
@@ -126,7 +126,7 @@ function ListarCategorias() {
                     )}
 
                 {!isLoading && categoriasFiltradas.length > 0 && (
-                        <div className="grid grid-cols-3 gap-5">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                             {categoriasFiltradas.map((categoria) => (
                                     <CardCategoria
                                         key={categoria.id}

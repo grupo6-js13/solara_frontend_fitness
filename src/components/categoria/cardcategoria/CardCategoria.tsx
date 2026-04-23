@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom"
 import type Categoria from "../../../models/Categoria"
- 
+
 interface CardCategoriaProps {
     categoria: Categoria
 }
- 
+
 function CardCategoria({ categoria }: CardCategoriaProps) {
     return (
         <div
@@ -27,18 +27,23 @@ function CardCategoria({ categoria }: CardCategoriaProps) {
                 className="flex items-center gap-3 py-4 px-5"
                 style={{ borderBottom: "1px solid #1E3056" }}
             >
-                <span className="text-2xl">{categoria.icone}</span>
+                <span className="text-2xl">
+                    {categoria.icone && !categoria.icone.includes('.')
+                        ? categoria.icone
+                        : '🏷️'
+                    }
+                </span>
                 <h3 className="text-sm font-semibold text-[#F0F4FF] line-clamp-2">
                     {categoria.nome}
                 </h3>
             </div>
- 
+
             {/* Corpo: descrição + badge */}
             <div className="flex flex-col gap-4 p-5 flex-1">
                 <p className="text-xs leading-relaxed" style={{ color: "#8B9DC3" }}>
                     {categoria.descricao || "Sem descrição."}
                 </p>
- 
+
                 <Link
                     to={`/exercicios?categoria=${categoria.id}`}
                     className="self-start text-xs font-medium px-2.5 py-1 rounded-full transition-all hover:opacity-80"
@@ -51,7 +56,7 @@ function CardCategoria({ categoria }: CardCategoriaProps) {
                     {categoria.exercicios?.length ?? 0} exercício(s)
                 </Link>
             </div>
- 
+
             {/* Ações */}
             <div
                 className="flex"
@@ -83,5 +88,5 @@ function CardCategoria({ categoria }: CardCategoriaProps) {
         </div>
     )
 }
- 
+
 export default CardCategoria
