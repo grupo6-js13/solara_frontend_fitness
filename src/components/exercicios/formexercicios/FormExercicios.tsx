@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { ClipLoader } from "react-spinners"
 import {
     createExercicio,
     updateExercicio,
@@ -11,6 +10,7 @@ import type Exercicio from "../../../models/Exercicio"
 import type Categoria from "../../../models/Categoria"
 import { AuthContext } from "../../../context/AuthContext"
 import { ToastAlerta } from "../../../util/ToastAlerta"
+import Loading from "../../loading/Loading"
 
 export default function FormExercicio() {
 
@@ -166,31 +166,27 @@ export default function FormExercicio() {
     // ─── LOADING ──────────────────────────────
 
     if (loading) {
-        return (
-            <div className="flex justify-center items-center min-h-screen bg-[#080D1A]">
-                <ClipLoader size={50} color="#F59E0B" />
-            </div>
-        )
+        return <Loading />
     }
 
     // ─── UI ───────────────────────────────────
 
     return (
-        <main className="min-h-screen bg-[#080D1A] py-16 px-6">
+        <main className="min-h-screen bg-[#040e27] py-16 px-6">
             <div className="max-w-2xl mx-auto">
 
                 <div className="mb-10">
                     <p className="text-[#8B9DC3] text-xs uppercase tracking-widest mb-2">
                         Gerenciamento
                     </p>
-                    <h1 className="text-[#F0F4FF] text-3xl font-bold">
+                    <h1 className="text-[#F0F4FF] text-2xl font-bold">
                         {id ? "Editar Exercício" : "Novo Exercício"}
                     </h1>
                 </div>
 
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-[#111E38] border border-[#1E3056] rounded-2xl p-8 space-y-6"
+                    className="bg-[#0D1528] border border-[#1E3056] rounded-3xl p-12 space-y-6"
                 >
 
                     {erro && (
@@ -278,7 +274,7 @@ export default function FormExercicio() {
                             disabled={saving}
                             className="flex-1 btn-primary cursor-pointer"
                         >
-                            {saving ? <ClipLoader size={18} color="#080D1A" /> : "Salvar"}
+                            {saving ? "Salvando..." : "Salvar"}
                         </button>
                     </div>
 

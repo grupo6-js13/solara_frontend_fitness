@@ -50,7 +50,7 @@ export default function DeletarExercicio({
             {/* Overlay */}
             <div
                 onClick={onClose}
-                className="absolute inset-0 bg-[#080D1A]/80 backdrop-blur-sm"
+                className="absolute inset-0 bg-[#040e27]/80 backdrop-blur-sm"
             />
 
             {/* Modal */}

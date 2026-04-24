@@ -5,6 +5,7 @@ import { AuthContext } from '../../context/AuthContext'
 import { atualizarUsuario, buscarUsuario } from '../../services/UsuarioService'
 import type { Usuario } from '../../models/Usuario'
 import { ToastAlerta } from '../../util/ToastAlerta'
+import Loading from '../../components/loading/Loading'
 
 export default function EditarPerfil() {
   const navigate = useNavigate()
@@ -103,19 +104,10 @@ export default function EditarPerfil() {
     }
   }
 
-  if (isFetching) {
-    return (
-      <div className="min-h-screen bg-[#080D1A] flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 border-4 border-[#1E3056] border-t-[#F59E0B] rounded-full animate-spin" />
-          <p className="text-[#8B9DC3] text-sm">Carregando perfil...</p>
-        </div>
-      </div>
-    )
-  }
+  if (isFetching) return <Loading />
 
   return (
-    <div className="min-h-screen bg-[#080D1A] py-16 px-6">
+    <div className="min-h-screen bg-[#040e27] py-16 px-6">
       <div className="max-w-xl mx-auto">
         <button
           onClick={() => navigate('/perfil')}
@@ -124,7 +116,7 @@ export default function EditarPerfil() {
           ← Voltar para o Perfil
         </button>
 
-        <h1 className="font-['Orbitron'] text-2xl font-bold text-[#F0F4FF] mb-10">
+        <h1 className="text-2xl font-bold text-[#F0F4FF] mb-10">
           Editar Perfil
         </h1>
 
@@ -139,7 +131,7 @@ export default function EditarPerfil() {
                 value={usuarioEditar.nome}
                 onChange={atualizarEstado}
                 required
-                className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
+                className="input"
               />
             </div>
 
@@ -151,7 +143,7 @@ export default function EditarPerfil() {
                 value={usuarioEditar.usuario}
                 onChange={atualizarEstado}
                 required
-                className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
+                className="input"
               />
             </div>
 
@@ -165,7 +157,7 @@ export default function EditarPerfil() {
                   onChange={atualizarEstado}
                   required
                   placeholder="Confirme para salvar"
-                  className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
+                  className="input"
                 />
               </div>
               <div>
@@ -177,7 +169,7 @@ export default function EditarPerfil() {
                   onChange={handleConfirmarSenha}
                   required
                   placeholder="Repita a senha"
-                  className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
+                  className="input"
                 />
               </div>
             </div>
@@ -189,7 +181,7 @@ export default function EditarPerfil() {
                 name="foto"
                 value={usuarioEditar.foto}
                 onChange={atualizarEstado}
-                className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
+                className="input"
               />
             </div>
 
@@ -201,7 +193,7 @@ export default function EditarPerfil() {
                 value={usuarioEditar.dataNascimento ? String(usuarioEditar.dataNascimento).split('T')[0] : ''}
                 onChange={atualizarEstado}
                 required
-                className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
+                className="input"
               />
             </div>
 
@@ -216,7 +208,7 @@ export default function EditarPerfil() {
                   value={usuarioEditar.peso === 0 ? '' : usuarioEditar.peso}
                   onChange={atualizarEstado}
                   required
-                  className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
+                  className="input"
                 />
               </div>
               <div>
@@ -229,7 +221,7 @@ export default function EditarPerfil() {
                   value={usuarioEditar.altura === 0 ? '' : usuarioEditar.altura}
                   onChange={atualizarEstado}
                   required
-                  className="w-full bg-[#080D1A] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] transition-colors"
+                  className="input"
                 />
               </div>
             </div>
@@ -245,7 +237,7 @@ export default function EditarPerfil() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="flex-2 bg-linear-to-br from-[#F59E0B] to-[#B45309] text-[#080D1A] font-bold py-3.5 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
+                className="flex-1 bg-linear-to-br from-[#F59E0B] to-[#B45309] text-[#040e27] font-bold py-3.5 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
               >
                 {isLoading ? 'Salvando...' : 'Salvar Alterações'}
               </button>

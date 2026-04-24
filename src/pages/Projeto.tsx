@@ -1,4 +1,4 @@
-import { BarbellIcon, CloudIcon, FileTextIcon, FolderOpenIcon, LightningIcon, UserCircleIcon } from "@phosphor-icons/react"
+import { BarbellIcon, ChartLineIcon, CloudIcon, FileTextIcon, FolderOpenIcon, LightningIcon, RobotIcon, ShoppingCartIcon, TrophyIcon, UserCircleIcon, YoutubeLogoIcon } from "@phosphor-icons/react"
 import { SiReact, SiTypeorm, SiTypescript, SiPassport, SiVite, SiTailwindcss, SiNestjs, SiNodedotjs, SiMysql, SiPostgresql } from '@icons-pack/react-simple-icons'
 
 function Projeto() {
@@ -47,18 +47,18 @@ function Projeto() {
     ]
 
     return (
-        <div 
+        <div
             className="min-h-screen text-[#e1effc] relative overflow-hidden"
-            style={{ 
+            style={{
                 backgroundColor: "#040e27",
                 backgroundImage: "linear-gradient(rgba(225, 239, 252, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(225, 239, 252, 0.02) 1px, transparent 1px)",
-                backgroundSize: "60px 60px" 
+                backgroundSize: "60px 60px"
             }}
         >
             {/* ── LUZES DE FUNDO (AMBIENT LIGHTS) ── */}
             {/* Ponto de luz amarelo (Topo Esquerdo) */}
             <div
-                className="fixed top-0 left-0 w-[50vw] h-[50vw] min-w-[500px] rounded-full pointer-events-none"
+                className="fixed top-0 left-0 w-[50vw] h-[50vw] min-w-125 rounded-full pointer-events-none"
                 style={{
                     background: "radial-gradient(circle, rgba(255,217,77,0.15) 0%, transparent 60%)",
                     transform: "translate(-30%, -30%)",
@@ -68,7 +68,7 @@ function Projeto() {
 
             {/* Ponto de luz azul claro (Canto Inferior Direito) */}
             <div
-                className="fixed bottom-0 right-0 w-[50vw] h-[50vw] min-w-[500px] rounded-full pointer-events-none"
+                className="fixed bottom-0 right-0 w-[50vw] h-[50vw] min-w-125 rounded-full pointer-events-none"
                 style={{
                     background: "radial-gradient(circle, rgba(77,179,246,0.15) 0%, transparent 60%)",
                     transform: "translate(30%, 30%)",
@@ -79,7 +79,7 @@ function Projeto() {
             {/* ── HERO ── */}
             <section className="relative flex flex-col items-center justify-center text-center px-6 py-24 z-10">
                 <h1
-                    className="relative font-['Orbitron'] font-black uppercase tracking-widest mb-4"
+                    className="relative font-black uppercase tracking-widest mb-4"
                     style={{
                         fontSize: "clamp(2.5rem, 8vw, 5rem)",
                         background: "linear-gradient(to right, #e1effc, #ffd94d, #ff9239, #4db3f6, #e1effc)",
@@ -148,7 +148,7 @@ function Projeto() {
                 <div className="max-w-5xl mx-auto">
                     <div className="text-center mb-12">
                         <h2
-                            className="font-['Orbitron'] font-bold text-[#e1effc] mb-3"
+                            className="font-bold text-[#e1effc] mb-3"
                             style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)" }}
                         >
                             O que a <span style={{ color: "#ffd94d" }}>Solara</span> oferece
@@ -183,13 +183,13 @@ function Projeto() {
                     </div>
                 </div>
             </section>
-            
+
             {/* ── TECNOLOGIAS ── */}
             <section className="relative px-6 py-20 border-t border-[#1f1f64] bg-[#040e27]/80 backdrop-blur-sm z-10">
                 <div className="max-w-5xl mx-auto">
                     <div className="text-center mb-12">
                         <h2
-                            className="font-['Orbitron'] font-bold text-[#e1effc] mb-3"
+                            className="font-bold text-[#e1effc] mb-3"
                             style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)" }}
                         >
                             A construção da <span style={{ color: "#ffd94d" }}>Solara</span>
@@ -211,7 +211,7 @@ function Projeto() {
 
                                 <p className="text-[#e1effc] text-xs font-semibold mb-1">{t.name}</p>
                                 <p className="text-[#e1effc]/60 text-[10px] mb-3">{t.desc}</p>
-                                
+
                                 <span
                                     className="mt-auto text-[9px] font-bold tracking-widest uppercase px-3 py-1 rounded-full border"
                                     style={{
@@ -233,7 +233,7 @@ function Projeto() {
                 <div className="max-w-4xl mx-auto">
                     <div className="text-center mb-12">
                         <h2
-                            className="font-['Orbitron'] font-bold text-[#e1effc] mb-3"
+                            className="font-bold text-[#e1effc] mb-3"
                             style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)" }}
                         >
                             Implementações <span style={{ color: "#ff9239" }}>Futuras</span>
@@ -245,11 +245,11 @@ function Projeto() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         {[
-                            { icon: "📈", title: "Histórico de IMC", desc: "Visualização gráfica do progresso corporal ao longo do tempo." },
-                            { icon: "🤖", title: "Sugestão Automática de Treinos", desc: "Recomendações personalizadas por IMC e perfil do usuário." },
-                            { icon: "🎥", title: "Vídeos dos Exercícios", desc: "Instrução visual para execução correta de cada exercício." },
-                            { icon: "🛒", title: "Simulador de Treino", desc: "Montagem de treino inspirada em carrinho de compras." },
-                            { icon: "🏅", title: "Níveis de Habilidade", desc: "Personalização de exercícios por nível: iniciante, intermediário, avançado." },
+                            { icon: <ChartLineIcon size={24} color="#4db3f6" />, title: "Histórico de IMC", desc: "Visualização gráfica do progresso corporal ao longo do tempo." },
+                            { icon: <RobotIcon size={24} color="#4db3f6" />, title: "Sugestão Automática de Treinos", desc: "Recomendações personalizadas por IMC e perfil do usuário." },
+                            { icon: <YoutubeLogoIcon size={24} color="#4db3f6" />, title: "Vídeos dos Exercícios", desc: "Instrução visual para execução correta de cada exercício." },
+                            { icon: <ShoppingCartIcon size={24} color="#4db3f6" />, title: "Simulador de Treino", desc: "Montagem de treino inspirada em carrinho de compras." },
+                            { icon: <TrophyIcon size={24} color="#4db3f6" />, title: "Níveis de Habilidade", desc: "Personalização de exercícios por nível: iniciante, intermediário, avançado." },
                         ].map((item) => (
                             <div
                                 key={item.title}

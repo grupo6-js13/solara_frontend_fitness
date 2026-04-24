@@ -50,7 +50,7 @@ function Sobre() {
       {/* ── LUZES DE FUNDO (AMBIENT LIGHTS) ── */}
       {/* Ponto de luz amarelo (Topo Esquerdo) */}
       <div
-          className="fixed top-0 left-0 w-[50vw] h-[50vw] min-w-[500px] rounded-full pointer-events-none"
+          className="fixed top-0 left-0 w-[50vw] h-[50vw] min-w-125 rounded-full pointer-events-none"
           style={{
               background: "radial-gradient(circle, rgba(255,217,77,0.15) 0%, transparent 60%)",
               transform: "translate(-30%, -30%)",
@@ -60,7 +60,7 @@ function Sobre() {
 
       {/* Ponto de luz azul claro (Canto Inferior Direito) */}
       <div
-          className="fixed bottom-0 right-0 w-[50vw] h-[50vw] min-w-[500px] rounded-full pointer-events-none"
+          className="fixed bottom-0 right-0 w-[50vw] h-[50vw] min-w-125 rounded-full pointer-events-none"
           style={{
               background: "radial-gradient(circle, rgba(77,179,246,0.15) 0%, transparent 60%)",
               transform: "translate(30%, 30%)",
@@ -69,7 +69,7 @@ function Sobre() {
       />
 
       {/* HERO */}
-      <section className="relative z-10 text-center px-6 sm:px-10 pt-20 pb-16 border-b border-[#1f1f64]">
+      <section className="relative z-10 text-center px-6 sm:px-10 pt-20 pb-16">
         
         <span
           className="relative z-10 mb-6 inline-block rounded-full border px-4 py-1 text-xs tracking-widest uppercase font-bold"
@@ -108,7 +108,7 @@ function Sobre() {
         <div className="w-full max-w-5xl">
 
           <div className="text-center mb-16">
-            <h2 className="font-['Orbitron'] text-3xl font-bold text-[#e1effc] mb-4">
+            <h2 className="text-3xl font-bold text-[#e1effc] mb-4">
               Nossa equipe
             </h2>
             <p className="text-[#e1effc]/80 text-base max-w-md mx-auto">
@@ -128,7 +128,7 @@ function Sobre() {
                   className="w-24 h-24 rounded-full mb-4 border-2 border-[#1f1f64] object-cover"
                 />
 
-                <h3 className="font-['Orbitron'] text-sm font-semibold text-[#e1effc] mb-1">
+                <h3 className="text-sm font-semibold text-[#e1effc] mb-1">
                   {member.name}
                 </h3>
 

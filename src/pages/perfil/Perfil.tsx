@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { buscarUsuario } from '../../services/UsuarioService'
 import type { Usuario } from '../../models/Usuario'
 import { ToastAlerta } from '../../util/ToastAlerta'
+import Loading from '../../components/loading/Loading'
 
 export default function Perfil() {
   const { usuario, handleLogout } = useContext(AuthContext)
@@ -73,29 +74,20 @@ export default function Perfil() {
 
   if (usuario.token === '') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#080D1A]">
+      <div className="min-h-screen flex items-center justify-center bg-[#040e27]">
         <p className="text-[#8B9DC3]">Você não está autenticado. Redirecionando...</p>
       </div>
     )
   }
 
-  if (isFetching) {
-    return (
-      <div className="min-h-screen bg-[#080D1A] flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 border-4 border-[#1E3056] border-t-[#F59E0B] rounded-full animate-spin" />
-          <p className="text-[#8B9DC3] text-sm">Carregando perfil...</p>
-        </div>
-      </div>
-    )
-  }
-
+  if (isFetching) return <Loading />
   return (
-    <div className="min-h-screen bg-[#080D1A] py-16 px-6">
+    <div className="min-h-screen py-16 px-6"
+      style={{ backgroundColor: "#040e27" }}>
       <div className="max-w-4xl mx-auto">
 
         {/* Header do perfil */}
-        <div className="bg-[#0D1528] border border-[#1E3056] rounded-3xl p-6 sm:p-10 flex flex-col sm:flex-row items-center sm:justify-between gap-6 sm:gap-8 mb-6 text-center sm:text-left">
+        <div className="bg-[#1f1f64]/30 border border-[#1f1f64] backdrop-blur-md rounded-3xl p-6 sm:p-10 flex flex-col sm:flex-row items-center sm:justify-between gap-6 sm:gap-8 mb-6 text-center sm:text-left">
           <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
             <div className="w-24 h-24 rounded-full border-2 border-[#F59E0B]/40 overflow-hidden shrink-0 flex items-center justify-center bg-[#111E38]">
               {usuarioCompleto.foto || usuario.foto ? (
@@ -105,7 +97,7 @@ export default function Perfil() {
               )}
             </div>
             <div>
-              <h1 className="font-['Orbitron'] text-xl sm:text-2xl font-bold text-[#F0F4FF] uppercase tracking-widest mb-1">
+              <h1 className="text-xl sm:text-2xl font-bold text-[#F0F4FF] uppercase tracking-widest mb-1">
                 {usuarioCompleto.nome || usuario.nome}
               </h1>
               <p className="text-[#8B9DC3] text-sm">{usuarioCompleto.usuario || usuario.usuario}</p>
@@ -132,16 +124,16 @@ export default function Perfil() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
           {/* Dados Pessoais */}
-          <div className="bg-[#0D1528] border border-[#1E3056] rounded-2xl p-5 sm:p-8">
-            <h2 className="font-['Orbitron'] text-sm font-bold tracking-widest uppercase mb-6 text-[#F0F4FF]">
+          <div className="bg-[#1f1f64]/30 border border-[#1f1f64] backdrop-blur-md rounded-2xl p-5 sm:p-8">
+            <h2 className="text-sm font-bold tracking-widest uppercase mb-6 text-[#F0F4FF]">
               Dados Pessoais
             </h2>
             <div className="flex flex-col">
-              <div className="py-3.5 border-b border-[#1E3056] flex justify-between items-center gap-4">
+              <div className="py-3.5 border-b border-[#1f1f64] flex justify-between items-center gap-4">
                 <span className="text-[#8B9DC3] text-sm shrink-0">Nome</span>
                 <span className="text-[#F0F4FF] font-medium text-right">{usuarioCompleto.nome || '--'}</span>
               </div>
-              <div className="py-3.5 border-b border-[#1E3056] flex justify-between items-center gap-4">
+              <div className="py-3.5 border-b border-[#1f1f64] flex justify-between items-center gap-4">
                 <span className="text-[#8B9DC3] text-sm shrink-0">E-mail</span>
                 <span className="text-[#F0F4FF] font-medium text-right break-all">{usuarioCompleto.usuario || '--'}</span>
               </div>
@@ -153,16 +145,16 @@ export default function Perfil() {
           </div>
 
           {/* Métricas Corporais */}
-          <div className="bg-[#0D1528] border border-[#1E3056] rounded-2xl p-5 sm:p-8">
-            <h2 className="font-['Orbitron'] text-sm font-bold tracking-widest uppercase mb-6 text-[#F0F4FF]">
+          <div className="bg-[#1f1f64]/30 border border-[#1f1f64] backdrop-blur-md rounded-2xl p-5 sm:p-8">
+            <h2 className="text-sm font-bold tracking-widest uppercase mb-6 text-[#F0F4FF]">
               Métricas Corporais
             </h2>
             <div className="grid grid-cols-2 gap-3 mb-5">
-              <div className="bg-[#111E38] border border-[#1E3056] rounded-xl p-4 text-center">
+              <div className="bg-[#1f1f64]/40 border border-[#1f1f64] rounded-xl p-4 text-center">
                 <p className="text-[#8B9DC3] text-xs uppercase tracking-widest mb-1">Peso</p>
                 <p className="text-[#F0F4FF] font-bold">{usuarioCompleto.peso ? `${usuarioCompleto.peso} kg` : '--'}</p>
               </div>
-              <div className="bg-[#111E38] border border-[#1E3056] rounded-xl p-4 text-center">
+              <div className="bg-[#1f1f64]/40 border border-[#1f1f64] rounded-xl p-4 text-center">
                 <p className="text-[#8B9DC3] text-xs uppercase tracking-widest mb-1">Altura</p>
                 <p className="text-[#F0F4FF] font-bold">{usuarioCompleto.altura ? `${usuarioCompleto.altura} m` : '--'}</p>
               </div>
@@ -170,7 +162,7 @@ export default function Perfil() {
 
             <div className={`${imcInfo.bg} border ${imcInfo.border} rounded-2xl p-6 text-center transition-colors`}>
               <p className={`${imcInfo.cor} text-xs uppercase tracking-widest mb-2 font-semibold`}>Seu IMC</p>
-              <p className={`font-['Orbitron'] text-4xl font-extrabold ${imcInfo.cor} mb-2`}>
+              <p className={`text-4xl font-extrabold ${imcInfo.cor} mb-2`}>
                 {imcNumerico > 0 ? imcNumerico.toFixed(1) : '--'}
               </p>
               <span className={`inline-block rounded-full px-3.5 py-1 text-sm font-semibold ${imcInfo.bg} border ${imcInfo.border} ${imcInfo.cor}`}>

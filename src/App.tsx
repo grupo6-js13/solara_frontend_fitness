@@ -20,7 +20,6 @@ import EditarPerfil from './pages/perfil/EditarPerfil'
 // Importações de CRUD 
 import ListarCategorias from './components/categoria/listarcategorias/ListarCategorias'
 import FormCategoria from './components/categoria/formcategoria/FormCategoria'
-import DeletarCategoria from './components/categoria/deletarcategoria/DeletarCategoria'
 import ListarExercicios from './components/exercicios/listarexercicios/ListarExercicios'
 import FormExercicio from './components/exercicios/formexercicios/FormExercicios'
 import Projeto from './pages/Projeto';
@@ -39,7 +38,7 @@ export default function App() {
           draggable={false}
           theme="dark"
         />        
-        <div className="min-h-screen bg-[#080D1A] text-[#F0F4FF] flex flex-col font-sans relative overflow-hidden">
+        <div className="min-h-screen bg-[#040e27] text-[#F0F4FF] flex flex-col font-sans relative overflow-hidden">
 
           <div className="absolute inset-0 z-0 opacity-10"
             style={{ backgroundImage: `radial-gradient(#8B9DC3 1px, transparent 1px)`, backgroundSize: '24px 24px' }}>
@@ -67,8 +66,7 @@ export default function App() {
               {/* Rotas de Categorias */}
               <Route path="/categorias" element={<ListarCategorias />} />
               <Route path="/cadastrarcategoria" element={<FormCategoria />} />
-              <Route path="/editarcategoria/:id" element={<FormCategoria />} />
-              <Route path="/deletarcategoria/:id" element={<DeletarCategoria />} />
+              <Route path="/editarcategoria/:id" element={<FormCategoria />} />              
 
               {/* Rotas de Exercícios */}
               <Route path="/exercicios" element={<ListarExercicios />} />

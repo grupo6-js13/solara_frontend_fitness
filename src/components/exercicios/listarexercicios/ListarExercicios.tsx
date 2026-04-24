@@ -81,7 +81,7 @@ export default function ListarExercicios() {
     }
 
     return (
-        <main className="min-h-screen bg-[#080D1A] py-16 px-6">
+        <main className="min-h-screen bg-[#040e27] py-16 px-6">
             <div className="max-w-6xl mx-auto">
 
                 {/* HEADER */}
@@ -110,12 +110,11 @@ export default function ListarExercicios() {
                         onChange={(e) => setBusca(e.target.value)}
                         onKeyDown={(e) => e.key === "Enter" && handleBusca()}
                         placeholder="Buscar exercícios..."
-                        className="flex-1 bg-[#111E38] border border-[#1E3056] rounded-xl px-4 py-3 text-[#F0F4FF] text-sm outline-none focus:border-[#F59E0B] placeholder:text-[#4A5A7A]"
+                        className="input"
                     />
-
                     <button
                         onClick={handleBusca}
-                        className="bg-[#F59E0B]/10 border border-[#F59E0B]/20 text-[#F59E0B] px-5 py-3 rounded-xl text-sm font-semibold hover:bg-[#F59E0B]/20 transition"
+                        className="bg-[#F59E0B]/10 border border-[#F59E0B]/20 text-[#F59E0B] px-5 py-3 rounded-xl text-sm font-semibold hover:bg-[#F59E0B]/20 transition shrink-0 cursor-pointer"
                     >
                         {buscando ? "Buscando..." : "Buscar"}
                     </button>
@@ -147,7 +146,7 @@ export default function ListarExercicios() {
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                         {exercicios.
-                        filter(ex => categoriaId ? ex.categoria?.id === Number(categoriaId) : true)
+                            filter(ex => categoriaId ? ex.categoria?.id === Number(categoriaId) : true)
                             .map((ex) => (
                                 <ExercicioCard
                                     key={ex.id}

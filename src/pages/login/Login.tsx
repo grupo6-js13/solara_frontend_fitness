@@ -36,7 +36,7 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-10 relative bg-[#080D1A]">
+    <div className="min-h-screen flex items-center justify-center px-6 py-10 relative bg-[#040e27]">
       <div className="bg-[#0D1528] border border-[#1E3056] rounded-3xl p-12 w-full max-w-md z-10">
         
         <div className="flex flex-col items-center mb-9">
@@ -47,7 +47,7 @@ export default function Login() {
                }}>
             ✦
           </div>
-          <h1 className="font-['Orbitron'] text-2xl font-bold tracking-widest text-center mb-2"
+          <h1 className="text-2xl font-bold tracking-widest text-center mb-2"
               style={{
                 background: "linear-gradient(90deg, #F59E0B 0%, #38BDF8 100%)",
                 WebkitBackgroundClip: "text",

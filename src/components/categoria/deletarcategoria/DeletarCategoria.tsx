@@ -1,127 +1,97 @@
-import { AuthContext } from "../../../context/AuthContext";
-import { useEffect, useContext, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { ClipLoader } from 'react-spinners'
-import type Categoria from '../../../models/Categoria'
-import { deleteCategoria, findCategoriaById } from '../../../services/CategoriaService'
-import { ToastAlerta } from '../../../util/ToastAlerta'
+import { useState, useContext } from "react"
+import { useNavigate } from "react-router-dom"
+import { deleteCategoria } from "../../../services/CategoriaService"
+import { AuthContext } from "../../../context/AuthContext"
+import { ToastAlerta } from "../../../util/ToastAlerta"
 
-function DeletarCategoria() {
-
-    // Objeto responsável por redirecionar o usuário para uma outra rota
+export default function DeletarCategoria({
+    id,
+    nome,
+    onClose,
+    onSuccess
+}: {
+    id: number
+    nome: string
+    onClose: () => void
+    onSuccess: () => void
+}) {
     const navigate = useNavigate()
-
-    // Estado para controlar o Loader (animação de carregamento)
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-
-    // Estado que irá receber os dados da categoria a ser deletada
-    const [categoria, setCategoria] = useState<Categoria>({} as Categoria)
+    const [loading, setLoading] = useState(false)
+    const [erro, setErro] = useState<string | null>(null)
 
     const { usuario, handleLogout } = useContext(AuthContext)
     const token = usuario.token
 
-    // Acessar o parâmetro id da rota de deleção da categoria
-    const { id } = useParams<{ id: string }>()
+    async function handleDelete() {
+        setLoading(true)
+        setErro(null)
 
-    // Função para buscar uma categoria pelo id no backend
-    // para exibir os dados antes de confirmar a deleção
-    async function buscarCategoriaPorId() {
         try {
-            setIsLoading(true)
-            const dados = await findCategoriaById(Number(id), token)
-            setCategoria(dados)
-        } catch (error: any) {
-            if (error.toString().includes('401')) {
-                ToastAlerta('Sessão expirada. Faça login novamente.', 'info')
-                handleLogout()
-                navigate('/')
-            }
-        } finally {
-            setIsLoading(false)
-        }
-    }
-
-    // Cria um useEffect para monitorar o token
-    useEffect(() => {
-        if (token === '') {
-            ToastAlerta('Você precisa estar logado!', 'info')
-            navigate('/')
-        }
-    }, [token])
-
-    // Cria um useEffect para monitorar o id (rota)
-    useEffect(() => {
-        if (id !== undefined) {
-            buscarCategoriaPorId()
-        }
-    }, [id])
-
-    function retornar() {
-        navigate('/categorias')
-    }
-
-    async function deletarCategoria() {
-        setIsLoading(true)
-        try {
-            await deleteCategoria(Number(id), token)
+            await deleteCategoria(id, token)
             ToastAlerta('Categoria deletada com sucesso!', 'sucesso')
+            onSuccess()
+            onClose()
         } catch (error: any) {
-            if (error.toString().includes('401')) {
+            if (error.response?.status === 401 || error.toString().includes('401')) {
                 ToastAlerta('Sessão expirada. Faça login novamente.', 'info')
                 handleLogout()
+                onClose()
                 navigate('/')
             } else {
-                ToastAlerta('Erro ao deletar a categoria!', 'erro')
+                setErro("Erro ao deletar categoria.")
             }
         } finally {
-            setIsLoading(false)
-            retornar()
+            setLoading(false)
         }
     }
 
     return (
-        <div className="min-h-screen bg-[#080D1A] flex items-center justify-center px-6 py-16">
-            <div className="bg-[#0D1528] border border-[#1E3056] rounded-2xl p-10 w-full max-w-md flex flex-col gap-6">
-                
-                <div className="text-center">
-                    <h1 className="font-['Orbitron'] text-2xl font-bold text-[#F0F4FF] mb-2">
-                        Deletar Categoria
-                    </h1>
-                    <p className="text-[#8B9DC3] text-sm">
-                        Você tem certeza que deseja apagar a categoria a seguir?
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+
+            {/* Overlay */}
+            <div
+                onClick={onClose}
+                className="absolute inset-0 bg-[#040e27]/80 backdrop-blur-sm"
+            />
+
+            {/* Modal */}
+            <div className="relative bg-[#0D1528] border border-[#1E3056] rounded-2xl p-8 w-full max-w-sm z-10">
+
+                <div className="text-3xl text-center mb-4">⚠️</div>
+
+                <h2 className="text-[#F0F4FF] font-bold text-center mb-2">
+                    Deletar categoria?
+                </h2>
+
+                <p className="text-[#8B9DC3] text-sm text-center mb-6">
+                    Você está prestes a deletar{" "}
+                    <span className="text-[#F0F4FF] font-semibold">{nome}</span>.
+                </p>
+
+                {erro && (
+                    <p className="text-[#F87171] text-sm text-center mb-4">
+                        {erro}
                     </p>
-                </div>
-                
-                <div className="bg-[#111E38] border border-[#1E3056] rounded-xl p-5 flex items-center gap-4">
-                    <span className="text-3xl">{categoria.icone}</span>
-                    <div>
-                        <p className="text-[#F0F4FF] font-semibold">{categoria.nome}</p>
-                        <p className="text-[#8B9DC3] text-xs mt-1">{categoria.descricao}</p>
-                    </div>
-                </div>
-                
+                )}
+
                 <div className="flex gap-3">
                     <button
-                        onClick={retornar}
-                        className="flex-1 bg-transparent border border-[#1E3056] text-[#8B9DC3] py-3 rounded-xl hover:border-[#8B9DC3] hover:text-white transition-all cursor-pointer"
+                        onClick={onClose}
+                        disabled={loading}
+                        className="flex-1 border border-[#1E3056] text-[#8B9DC3] py-3 rounded-xl hover:border-[#8B9DC3] hover:text-white transition disabled:opacity-50 cursor-pointer"
                     >
                         Cancelar
                     </button>
+
                     <button
-                        onClick={deletarCategoria}
-                        disabled={isLoading}
-                        className="flex-2 bg-[#F87171]/10 border border-[#F87171]/30 text-[#F87171] py-3 rounded-xl flex items-center justify-center hover:bg-[#F87171]/20 transition-all cursor-pointer disabled:opacity-60"
+                        onClick={handleDelete}
+                        disabled={loading}
+                        className="flex-1 bg-[#F87171]/10 border border-[#F87171]/30 text-[#F87171] py-3 rounded-xl hover:bg-[#F87171]/20 transition disabled:opacity-50 cursor-pointer"
                     >
-                        {isLoading
-                            ? <ClipLoader color="#F87171" size={20} />
-                            : 'Sim, deletar'
-                        }
+                        {loading ? "Deletando..." : "Deletar"}
                     </button>
                 </div>
-
             </div>
         </div>
     )
 }
-
-export default DeletarCategoria
