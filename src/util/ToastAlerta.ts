@@ -1,5 +1,4 @@
 import { toast } from 'react-toastify'
-
 const toastConfig = {
     position: 'top-right' as const,
     autoClose: 2000,
@@ -35,6 +34,27 @@ export function ToastAlerta(mensagem: string, tipo: string) {
                 style: {
                     ...toastConfig.style,
                     borderLeft: "3px solid #F87171",
+                }
+            })
+            break
+
+        case 'treino':
+            toast.success(`☀️ ${mensagem}`, {
+                ...toastConfig,                                
+                style: {
+                    ...toastConfig.style,
+
+                    background:
+                        "linear-gradient(135deg, #0D1528 0%, #111E38 100%)",
+
+                    border: "1px solid rgba(245,158,11,0.25)",
+
+                    borderLeft: "4px solid #F59E0B",
+
+                    boxShadow:
+                        "0 0 18px rgba(245,158,11,0.18)",
+
+                    color: "#F8FAFC",
                 }
             })
             break
