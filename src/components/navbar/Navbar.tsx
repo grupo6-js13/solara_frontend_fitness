@@ -57,6 +57,7 @@ export default function Navbar() {
             <>
               <Link to="/categorias" className={`${isActive("/categorias")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-[#ffd94d] transition-all`}>Categorias</Link>
               <Link to="/exercicios" className={`${isActive("/exercicios")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-[#ffd94d] transition-all`}>Exercícios</Link>
+              <Link to="/treino" className={`${isActive("/treino")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-[#ffd94d] transition-all`}>Treinos</Link>
             </>
           )}
         </div>
@@ -120,6 +121,7 @@ export default function Navbar() {
             <>
               <Link to="/categorias" onClick={() => setMenuAberto(false)} className={`${isActive("/categorias")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-[#ffd94d] transition-all`}>Categorias</Link>
               <Link to="/exercicios" onClick={() => setMenuAberto(false)} className={`${isActive("/exercicios")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-[#ffd94d] transition-all`}>Exercícios</Link>
+              <Link to="/treino" onClick={() => setMenuAberto(false)} className={`${isActive("/treino")} text-[11px] font-bold uppercase tracking-[0.2em] hover:text-[#ffd94d] transition-all`}>Treinos</Link>
             </>
           )}
 

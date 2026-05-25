@@ -4,6 +4,7 @@ import type Exercicio from "../../../models/Exercicio"
 import { findAllExercicios, findExerciciosByNome } from "../../../services/ExercicioService"
 import ModalConfirmDeleteExercicio from "../deletarexercicio/DeletarExercicio"
 import ExercicioCard from "../../../components/exercicios/exerciciocard/ExercicioCard"
+import { TreinoContext } from '../../../context/TreinoContext'
 
 // LÓGICA INJETADA: Importando a Segurança
 import { AuthContext } from "../../../context/AuthContext"
@@ -15,15 +16,17 @@ export default function ListarExercicios() {
     const [exercicios, setExercicios] = useState<Exercicio[]>([])
     const [loading, setLoading] = useState(true)
     const [erro, setErro] = useState<string | null>(null)
-
     const [busca, setBusca] = useState("")
     const [buscando, setBuscando] = useState(false)
-
     const [deleteTarget, setDeleteTarget] = useState<{ id: number; nome: string } | null>(null)
 
     // Para busca de exercícios
     const [searchParams] = useSearchParams()
     const categoriaId = searchParams.get('categoria')
+
+    // Para ativar o botão de montagem do treino
+    const [montagemTreino, setMontagemTreino] = useState(() => searchParams.get('montagem') === 'true')
+    const { quantidadeExercicios } = useContext(TreinoContext)
 
     // LÓGICA INJETADA: Consumindo o Contexto de Autenticação
     const { usuario, handleLogout } = useContext(AuthContext)
@@ -85,7 +88,7 @@ export default function ListarExercicios() {
             <div className="max-w-6xl mx-auto">
 
                 {/* HEADER */}
-                <div className="flex justify-between items-center mb-10">
+                <div className="flex flex-wrap justify-between items-start gap-4 mb-10">
                     <div>
                         <p className="text-[#8B9DC3] text-xs uppercase tracking-widest mb-1">
                             Gerenciamento
@@ -95,12 +98,28 @@ export default function ListarExercicios() {
                         </h1>
                     </div>
 
-                    <button
-                        onClick={() => navigate("/exercicios/cadastrar")}
-                        className="bg-linear-to-br from-[#F59E0B] to-[#B45309] text-[#080D1A] font-bold rounded-xl px-6 py-3 text-sm hover:opacity-90 transition cursor-pointer"
-                    >
-                        + Novo exercício
-                    </button>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                        <button
+                            onClick={() => {
+                                if (montagemTreino) {
+                                    ToastAlerta('Treino montado! Prepare-se para sua jornada!', 'treino')
+                                    navigate('/treino')
+                                } else {
+                                    setMontagemTreino(true)
+                                }
+                            }}
+                            className="bg-[#4db3f6] text-[#040e27] font-bold rounded-xl px-3 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm hover:opacity-90 transition cursor-pointer"
+                        >
+                            {montagemTreino ? `Treino atual (${quantidadeExercicios})` : 'Montar Treino'}
+                        </button>
+
+                        <button
+                            onClick={() => navigate("/exercicios/cadastrar")}
+                            className="bg-linear-to-br from-[#F59E0B] to-[#B45309] text-[#080D1A] font-bold rounded-xl px-3 py-2 text-xs sm:px-5 sm:py-2.5 sm:text-sm hover:opacity-90 transition cursor-pointer"
+                        >
+                            + Novo exercício
+                        </button>
+                    </div>
                 </div>
 
                 {/* BUSCA */}
@@ -151,6 +170,7 @@ export default function ListarExercicios() {
                                 <ExercicioCard
                                     key={ex.id}
                                     exercicio={ex}
+                                    modoMontagem={montagemTreino}
                                     onEdit={(id: number) => navigate(`/exercicios/editar/${id}`)}
                                     onDelete={(id: number, nome: string) => setDeleteTarget({ id, nome })}
                                 />
